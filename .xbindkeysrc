@@ -1,0 +1,17 @@
+"~/.scripts/sound_control.py adjust 5"
+    Mod3 + F12
+
+"~/.scripts/sound_control.py adjust -5"
+    Mod3 + F11
+
+"~/.scripts/sound_control.py toggle"
+    Mod3 + F10
+
+"chromium"
+    Mod3 + C
+
+"xterm -e bash ranger"
+    Mod3 + M
+
+"spotify"
+    Mod3 + S
