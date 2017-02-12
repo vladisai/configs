@@ -2,7 +2,6 @@
 from subprocess import Popen, PIPE, check_output
 import sys
 
-baseCommand = 'amixer -c 1'
 mutedSymbol = ''
 unmutedSymbol = ''
 
@@ -10,94 +9,44 @@ def runCommand(command):
     return check_output(command, shell = True).decode(encoding = 'utf-8')
 
 def updateStatusBar():
-    runCommand('pkill -RTMIN+1 i3blocks')
+    ret = runCommand('pkill -RTMIN+1 i3blocks')
+    print(buildStatusString())
 
-def getMasterStatus():
-    command = baseCommand + ' get Master'
-    command += " | awk '/%/{print $6}'"
-    ret = runCommand(command)
-    ret = str(ret[1:-2])
-    return ret
-
-def getSpeakerStatus():
-    command = baseCommand + ' get Speaker'
-    command += " | awk '/Right.*%/{print $7}'"
-    ret = runCommand(command)
-    ret = str(ret[1:-2])
-    return ret
-
-def getHeadphoneStatus():
-    command = baseCommand + ' get Headphone'
-    command += " | awk '/Right.*%/{print $7}'"
-    ret = runCommand(command)
-    ret = str(ret[1:-2])
-    return ret
-
-def getOverallStatus():
-    master = getMasterStatus()
-    headphone = getHeadphoneStatus()
-    if master == 'on' and headphone == 'on':
-        return 'on'
-    else:
-        return 'off'
-
-def toggleMaster():
-    runCommand(baseCommand + ' set Master toggle')
-
-def toggleHeadphone():
-    runCommand(baseCommand + ' set Headphone toggle')
+def getStatus():
+    command = 'pulseaudio-ctl full-status'
+    res = runCommand(command)
+    s = res.split()
+    vol = s[0]
+    status = s[1]
+    isMuted = True
+    if status == 'no':
+        isMuted = False
+    return vol, isMuted
 
 def toggle():
-    master = getMasterStatus()
-    headphone = getHeadphoneStatus()
-    overall = getOverallStatus()
-    if master == overall:
-        toggleMaster()
-    if headphone == overall:
-        toggleHeadphone()
-
-def setStatus(status):
-    master = getMasterStatus()
-    headphone = getHeadphoneStatus()
-    overall = getOverallStatus()
-    if master != status:
-        toggleMaster()
-    if headphone != status:
-        toggleHeadphone()
-
-def getVolume():
-    command = baseCommand + ' get Master'
-    command += " | awk '/%/{print $4}'"
-    ret = runCommand(command)
-    ret = int(ret[1:-3])
-    return ret
-
-def adjustVolume(val):
-    oldVal = getVolume()
-    strval = str(val)
-    if val > 0:
-        strval += '+'
-    else:
-        strval = strval[1:] + '-'
-    command = baseCommand + ' set Master ' + strval
+    command = 'pulseaudio-ctl mute'
     runCommand(command)
-    newVal = getVolume()
-    
-    if oldVal > 0 and newVal == 0:
-        setStatus('off')
-    elif oldVal == 0 and newVal > 0:
-        setStatus('on')
 
-def getGeneralStatus():
-    vol = getVolume()
+def buildStatusString():
+    vol, isMuted = getStatus()
     symbol = 'x'
-    strvol = str(vol) + '%'
-    status = getOverallStatus()
-    if status == 'on':
+    strvol = vol + '%'
+    if not isMuted:
         symbol = unmutedSymbol
     else:
         symbol = mutedSymbol 
     return ' '.join([symbol, strvol])
+
+def adjustVolume(val):
+    try:
+        command = 'pulseaudio-ctl up'
+        if val < 0:
+            command = 'pulseaudio-ctl down'
+            val *= -1
+        command += ' ' + str(val)
+        runCommand(command)
+    except Exception as e:
+        pass
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -108,7 +57,7 @@ if __name__ == "__main__":
         adjustVolume(int(sys.argv[2]))
         updateStatusBar()
     elif cmd == 'read':
-        print(getGeneralStatus())
+        print(buildStatusString())
     elif cmd == 'toggle':
         toggle()
         updateStatusBar()
