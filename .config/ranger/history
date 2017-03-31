@@ -1,0 +1,50 @@
+mkdir zadanie2
+search test
+mkdir the power of habint
+rename the power of habit
+shell vim notes.txt
+shell vim lic
+search doc
+search pro
+search scripts
+rename task_solved.png
+rename alarm_settings.png
+rename general_settings.png
+rename calendar_demo.png
+mkdir mockups
+search i3
+search config
+open_with vim
+search trash
+search g
+rename test.mp3
+search load1
+search ge
+search pulse
+shell sudo vim default.pa 
+rename vm_setup.sh
+rename vm_run.sh
+shell -p #
+shell -p 
+shell vim loop.asm
+search bashrc
+search pop
+shell ./%s
+shell -w ./%s runserver
+shell -t vim html_render.py
+shell vim f 
+delete
+mkdir gen
+shell vim build_html.sh
+search ranger
+shell -w ./%s
+shell vim index.html 
+open_with0
+open_with 0
+open_with 
+shell  %s
+shell ./%s runserver
+shell -t ./%s runserver
+shell 
+shell c
+open_with chromium

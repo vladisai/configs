@@ -1,3 +1,9 @@
+"~/.scripts/pomodor.py toggle"
+    Mod3 + F1
+
+"~/.scripts/pomodor.py pause"
+    Mod3 + F2
+
 "~/.scripts/sound_control.py adjust 5"
     Mod3 + F12
 
@@ -7,6 +13,9 @@
 "~/.scripts/sound_control.py toggle"
     Mod3 + F10
 
+"xterm -e vim -S ~/Documents/org.vim"
+    Mod3 + O
+
 "chromium"
     Mod3 + C
 
@@ -15,3 +24,11 @@
 
 "spotify"
     Mod3 + S
+
+"xbacklight +3"
+    XF86MonBrightnessUp
+
+"xbacklight -3"
+    XF86MonBrightnessDown
+
+

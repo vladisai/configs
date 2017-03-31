@@ -29,11 +29,12 @@ set_from_resource $darkcyan    color6  #000000
 set_from_resource $cyan        color14 #000000
 set_from_resource $darkwhite   color7  #000000
 set_from_resource $white       color15 #000000
+
 # Use custom colors for black
-set $black       #282828
-set $darkblack   #1d2021
-set $transparent #00000000
-set $highlight #ffffff38
+set $highlight #ffffff28
+set $background_col #060606
+set $accent_text_col #dfdfdf
+set $text_col #7f7f7f
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -165,35 +166,39 @@ mode "resize" {
 # Pressing right will grow the window’s width.
 # Pressing up will shrink the window’s height.
 # Pressing down will grow the window’s height.
-    bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Shift+h resize shrink width 90 px or 90 ppt
+    bindsym Shift+j resize grow height 90 px or 90 ppt
+    bindsym Shift+k resize shrink height 90 px or 90 ppt
+    bindsym Shift+l resize grow width 90 px or 90 ppt
 
 # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
 # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-set $col1 #000000
 
 bar {
     status_command i3blocks -c ~/.config/i3blocks/conf
         i3bar_command i3bar -t
         tray_output primary
 
-        font pango:Hack, FontAwesome 10.3
-        separator_symbol ","
+        font pango:NotoMono 10.3, FontAwesome 10.3
+        separator_symbol "|"
         bindsym button4 nop
         bindsym button5 nop
         tray_output HDMI1
@@ -202,16 +207,16 @@ bar {
         height 25
 
         colors {
-            statusline         $white
-                background         $col1
-                separator          $black
+            statusline         $accent_text_col
+            background         $background_col
+            separator          $highlight
 
-#                          BORDER       BACKGROUND   TEXT
-                focused_workspace  $col1 $highlight #d0d0d0
-                inactive_workspace $col1 $col1 $white
-                active_workspace   $col1 $col1 $white
-                urgent_workspace   $darkred     $col1 #d0d0d0
-                binding_mode       $col1 $highlight #d0d0d0
+            #                      BORDER       BACKGROUND         TEXT
+            focused_workspace  $background_col  $highlight         $accent_text_col
+            inactive_workspace $background_col  $background_col    $text_col
+            active_workspace   $background_col  $background_col    $accent_text_col
+            urgent_workspace   $darkred         $background_col    $accent_text_col
+            binding_mode       $background_col  $background_col    $accent_text_col
         }
 }
 
@@ -219,8 +224,5 @@ workspace_layout tabbed
 exec --no-startup-id sh ~/.fehbg
 
 for_window [class="^.*"] border pixel 0
-gaps inner 5
-gaps outer 5
-smart_gaps on
 
 #exec --no-startup-id compton -b

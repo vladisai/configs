@@ -1,14 +1,10 @@
 #
 # ~/.bash_profile
 #
-
-alias rm="echo rm is disabled. Use del to move to trash, or use /bin/rm."
-alias del="mv -t .trash"
-
-[[-f ~/.bashrc ]] && . ~/.bashrc
+[[-f ~/.config/.bashrc ]] && . ~/.config/.bashrc
 
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 2 ]]; then
-	exec startx ~/.xinitrc xfce 
+	exec startx ~/.config/X/.xinitrc xfce 
 else
-	exec startx ~/.xinitrc i3
+	exec startx ~/.config/X/.xinitrc i3
 fi

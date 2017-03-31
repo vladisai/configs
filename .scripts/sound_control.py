@@ -10,7 +10,6 @@ def runCommand(command):
 
 def updateStatusBar():
     ret = runCommand('pkill -RTMIN+1 i3blocks')
-    print(buildStatusString())
 
 def getStatus():
     command = 'pulseaudio-ctl full-status'

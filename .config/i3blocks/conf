@@ -27,8 +27,12 @@
 separator_block_width=15
 markup=none
 
+[pomodor]
+command=~/.scripts/pomodor.py read
+signal=2
+interval=60
+
 [volume]
-label=
 command=~/.scripts/sound_control.py read
 interval=once
 signal=1
@@ -39,11 +43,11 @@ interval=60
 
 [load]
 command=~/.scripts/load.py
-interval=5
+interval=15
 
 [temperature]
 command=~/.scripts/temperature.py
-interval=5
+interval=15
 
 [battery]
 command=~/.scripts/battery.py
@@ -51,4 +55,4 @@ interval=30
 
 [time]
 command=date '+%Y-%m-%d %H:%M                                                                              '
-interval=5
+interval=60

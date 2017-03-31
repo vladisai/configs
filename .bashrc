@@ -178,20 +178,29 @@ if [ "$TERM" = "linux" ]; then
 fi
 clear
 
-alias mountall='sudo mount -t ntfs -o umask=000 /dev/sda1 /media/multimedia; sudo mount -t ntfs -o umask=000 /dev/sda2 /media/software' 
+alias mountall='udisksctl mount -b /dev/sda1; udisksctl mount -b /dev/sda2' 
 alias mount_u='sudo mount -o umask=000'
 alias adb='~/Applications/android/SDK/platform-tools/adb'
 alias android_studio='source ~/Applications/android-studio/bin/studio.sh'
-alias monitor_setup='xrandr --output HDMI1 --mode 1920x1080 & xmodmap ~/.Xmodmap'
+alias monitor_setup='xrandr --output HDMI1 --mode 1920x1080; keyboard_setup.sh'
 alias two_screens='xrandr --output HDMI1 --auto --output eDP1 --auto --left-of HDMI1'
-alias android='/opt/android-studio/bin/studio.sh'
 alias sshlogin='ssh -v 97022413196@www.sds.uw.edu.pl'
 
 alias rm="echo rm is disabled. Use del to move to trash, or use /bin/rm."
-alias del="mv -t ~/.trash"
+#alias del='mkdir ~/.trash/$(date +"%Y_%m_%d_%H_%M_%S"); mv -t $_'
+alias del='safe_delete.sh'
 
-# export JAVA_HOME=:~/Applications/jdk1.8.0_111/bin/java
-# export PATH=$PATH:~/Applications/jdk1.8.0_111/bin:/usr/include
+alias org="vim -S ~/Documents/org.vim"
+
+alias chrnex="chrome_launcher.py start && chromium --new-window --user-data-dir=/tmp/temp-profile --disable-extensions && chrome_launcher.py end;"
 
 export SCALA_HOME=:/usr/share/scala/
 export PATH=$PATH:$SCALA_HOME/bin
+
+export ANDROID_HOME=${HOME}/Android/Sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+export PATH=${PATH}:~/.scripts
+
+#so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon

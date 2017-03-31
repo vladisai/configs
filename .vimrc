@@ -23,14 +23,20 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'majutsushi/tagbar'
 
 " " Plugin easy tags ctags generation
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+" " Plugin 'xolox/vim-misc'
+" " Plugin 'xolox/vim-easytags'
 
 " " Plugin Nerd Commenter
 Plugin 'scrooloose/nerdcommenter'
 
+" " Nerd tree
+Plugin 'scrooloose/nerdtree'
+
 " " Plugin airline
 Plugin 'bling/vim-airline'
+
+" " command t
+Plugin 'wincent/command-t'
 
 " " snipMate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -44,7 +50,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'sjl/gundo.vim'
 
 " " Autoformat
-Plugin 'rhysd/vim-clang-format'
+Plugin 'Chiel92/vim-autoformat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -141,6 +147,8 @@ else
 
 endif " has("autocmd")
 
+set autoindent
+
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
@@ -164,7 +172,7 @@ map <Leader>da :%d<CR>
 map <Leader>h :nohl<CR>
 map <Leader>q :wq<CR>
 map <Leader>s :sh<CR>
-nnoremap <leader>f :ClangFormat<CR>
+nnoremap <leader>f :Autoformat<CR>
 map <leader>a ggvG
 map <leader>y "+y
 map <leader>Y "+Y
@@ -173,6 +181,11 @@ map <leader>P "+P
 map <leader>t :TagbarOpenAutoClose<CR>
 map <leader>d :bd<CR>
 map <leader>v :vsplit<CR>
+map <leader>. :NERDTreeToggle<CR>
+
+map <leader>rt <Plug>(CommandT)
+map <leader>rb <Plug>(CommandTBuffer)
+map <leader>rj <Plug>(CommandTJump)
 
 " key bindings
 inoremap <F9> <Esc><F9>
@@ -244,7 +257,8 @@ set foldmethod=indent
 nnoremap <leader>rrc :source $MYVIMRC<CR>
 nnoremap <leader>orc :vsp $MYVIMRC<CR>
 
-nnoremap <F11> :make all<CR>
+nnoremap <F10> :make! run<CR>
+nnoremap <F11> :make! all<CR>
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -257,15 +271,24 @@ set expandtab
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 map <leader>x :YcmCompleter FixIt<CR>
 
+" " date
+:nnoremap <F5> "=strftime("%d/%m/%y")<CR>P
+:inoremap <F5> <C-R>=strftime("%d/%m/%y")<CR>
+
+" " formatter
+let g:formatter_yapf_style = 'chromium'
+
+" " Nerd Tree
+let NERDTreeQuitOnOpen = 1
+
 " compiling files
-autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f && g++ -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
-autocmd FileType cpp nnoremap <leader><F9> :w<CR>:!clear<CR>:!clang -Wall -pthread -std=c++14 -O2 -lstdc++ "%:p" -o "%:p:r"<CR>
+autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f && g++ -Wall -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
+autocmd FileType cpp nnoremap <leader><F9> :w<CR>:!clear<CR>:!clang -Wall -pthread -std=c++14 -O3 -lstdc++ "%:p" -o "%:p:r"<CR>
 autocmd FileType cpp nnoremap <F8> :!clear<CR>:!"%:p:r"<CR>
 autocmd FileType cs nnoremap <F9> :w<CR>:!mcs "%:p:r".cs<CR>
 autocmd FileType cs nnoremap <F8> :!mono "%:p:r".exe<CR>
 autocmd FileType c nnoremap <F9> :w<CR>:!gcc "%:p:r".c -Wall -pedantic -std=c99 -o "%:p:r"<CR>
 autocmd FileType c nnoremap <F8> :!clear<CR>:!"%:p:r"<CR>
-autocmd FileType java nnoremap <F10> :w<CR>:!clear<CR>:!gradle -p ~/studia/uni_coursework/PW/zal1 build<CR>
 autocmd FileType java nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r".class -f && javac "%:p"<CR>
 autocmd FileType java nnoremap <F8> :!java "%:r"<CR>
 autocmd FileType ocaml nnoremap <F9> :w<CR>:!ocamlc -o "%:p:r" "%:p:r".ml<CR>
@@ -273,3 +296,6 @@ autocmd FileType ocaml nnoremap <F8> :!"%:p:r"<CR>
 autocmd FileType ocaml nnoremap <F7> :w<CR>:!ocaml < "%:p"<CR>
 autocmd FileType python nnoremap <F9> :w<CR>:!python "%:p"<CR>
 autocmd FileType sh nnoremap <F8> :w<CR>:!"%:p"<CR>
+autocmd FileType tex nnoremap <F9> :w<CR>:!xelatex "%:p" && zathura "%:p:r".pdf<CR>
+autocmd FileType javascript nnoremap <F9> :w<CR>:!node "%"<CR>
+autocmd FileType javascript nnoremap <F8> :w<CR>:!eslint "%"<CR>
