@@ -180,8 +180,6 @@ clear
 
 alias mountall='udisksctl mount -b /dev/sda1; udisksctl mount -b /dev/sda2' 
 alias mount_u='sudo mount -o umask=000'
-alias adb='~/Applications/android/SDK/platform-tools/adb'
-alias android_studio='source ~/Applications/android-studio/bin/studio.sh'
 alias monitor_setup='xrandr --output HDMI1 --mode 1920x1080; keyboard_setup.sh'
 alias two_screens='xrandr --output HDMI1 --auto --output eDP1 --auto --left-of HDMI1'
 alias sshlogin='ssh -v 97022413196@www.sds.uw.edu.pl'
@@ -190,7 +188,7 @@ alias rm="echo rm is disabled. Use del to move to trash, or use /bin/rm."
 #alias del='mkdir ~/.trash/$(date +"%Y_%m_%d_%H_%M_%S"); mv -t $_'
 alias del='safe_delete.sh'
 
-alias org="vim -S ~/Documents/org.vim"
+alias org="vim -S ~/Documents/org/org.vim"
 
 alias chrnex="chrome_launcher.py start && chromium --new-window --user-data-dir=/tmp/temp-profile --disable-extensions && chrome_launcher.py end;"
 

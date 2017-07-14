@@ -1,50 +1,50 @@
-mkdir zadanie2
-search test
-mkdir the power of habint
-rename the power of habit
+rename bpqq.latex
+shell vim map.py
+search lif
+mkdir zadanie6
+mkdir ai
+shell /bin/rm 2017_06_01_08_53_48 
+shell -w /bin/rm 2017_06_01_08_53_48 
+shell -w /bin/rm -rf 2017_06_01_08_53_48 
+search 
+shell /bin/rm hdb 
+shell zip ~/df.zip %s 
+mkdir 
+mkdir boleslaw prus lalka
 shell vim notes.txt
-shell vim lic
-search doc
-search pro
-search scripts
-rename task_solved.png
-rename alarm_settings.png
-rename general_settings.png
-rename calendar_demo.png
-mkdir mockups
+shell vim test.py
+search src
+search inc
+search mi
+search mini
+shell jhло
 search i3
-search config
-open_with vim
-search trash
-search g
-rename test.mp3
-search load1
-search ge
-search pulse
-shell sudo vim default.pa 
-rename vm_setup.sh
-rename vm_run.sh
-shell -p #
-shell -p 
-shell vim loop.asm
-search bashrc
-search pop
-shell ./%s
-shell -w ./%s runserver
-shell -t vim html_render.py
-shell vim f 
-delete
-mkdir gen
-shell vim build_html.sh
-search ranger
-shell -w ./%s
-shell vim index.html 
-open_with0
-open_with 0
-open_with 
-shell  %s
-shell ./%s runserver
-shell -t ./%s runserver
-shell 
-shell c
+shell -w cloc %s 
+shell -w /bin/rm -r 2017_06_01_08_53_48 
+shell tar -cvf ws374078.tar %s 
+shell э
+search org
+search test
+shell vim sport.txt
 open_with chromium
+search np
+search ipy
+shell pdfunite %s all.pdf
+shell diff %s 
+shell -w diff %s 
+shell -w vimdiff %s 
+shell G
+open_with 3
+open_with calibre
+search sin
+shell 's
+open_with
+open_with vlc
+open_with mpv
+shell /bin/rm %s 
+shell /bin/rm -r %s 
+shell /bin/rm -r 2017_06_29_17_23_47 
+open_with 
+
+shell 
+search config

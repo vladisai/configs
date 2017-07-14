@@ -10,7 +10,7 @@ def runCommand(command):
     return check_output(command, shell = True).decode(encoding = 'utf-8')
 
 def getTemp():
-    ret = runCommand("sensors | awk '/Physical/{print $4}'")
+    ret = runCommand("sensors | awk '/Package id 0/{print $4}'")
     ret = ret[1:-5]
     return int(ret)
 

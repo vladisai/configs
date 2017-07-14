@@ -35,8 +35,8 @@ Plugin 'scrooloose/nerdtree'
 " " Plugin airline
 Plugin 'bling/vim-airline'
 
-" " command t
-Plugin 'wincent/command-t'
+" " LustyExplorer
+Plugin 'vim-scripts/LustyExplorer'
 
 " " snipMate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -183,10 +183,6 @@ map <leader>d :bd<CR>
 map <leader>v :vsplit<CR>
 map <leader>. :NERDTreeToggle<CR>
 
-map <leader>rt <Plug>(CommandT)
-map <leader>rb <Plug>(CommandTBuffer)
-map <leader>rj <Plug>(CommandTJump)
-
 " key bindings
 inoremap <F9> <Esc><F9>
 inoremap <F8> <Esc><F8>
@@ -198,7 +194,11 @@ nmap <CR> o<esc>
 set number
 let g:rehash256 = 1
 set t_Co=256
-colorscheme molokai
+set cursorline
+" colorscheme molokai
+colorscheme pettir
+set background=light
+set termguicolors
 
 " donno why I need these
 set nocompatible
@@ -217,7 +217,7 @@ if !exists('g:airline_symbols')
 endif
 
 " unicode symbols
-let g:airline_theme = 'dark'
+let g:airline_theme = 'one'
 let g:airline_left_sep = '>'
 let g:airline_left_alt_setp = '|'
 let g:airline_right_sep = '<'
@@ -243,9 +243,6 @@ nnoremap <leader>u :GundoToggle<CR>
 " tags
 set tags=./tags;
 
-" highlighting current line
-set cursorline
-
 " folds
 set foldenable
 set foldlevelstart=10
@@ -269,6 +266,7 @@ set expandtab
 
 " " YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_key_invoke_completion = '<C-b>'
 map <leader>x :YcmCompleter FixIt<CR>
 
 " " date
@@ -281,9 +279,12 @@ let g:formatter_yapf_style = 'chromium'
 " " Nerd Tree
 let NERDTreeQuitOnOpen = 1
 
+" " Lusty
+set hidden
+
 " compiling files
-autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f && g++ -Wall -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
-autocmd FileType cpp nnoremap <leader><F9> :w<CR>:!clear<CR>:!clang -Wall -pthread -std=c++14 -O3 -lstdc++ "%:p" -o "%:p:r"<CR>
+autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f && g++ -O2 -Wall -Wextra -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
+autocmd FileType cpp nnoremap <leader><F9> :w<CR>:!clear<CR>:!clang -Wall -Wextra -pthread -std=c++14 -O3 -lstdc++ "%:p" -o "%:p:r"<CR>
 autocmd FileType cpp nnoremap <F8> :!clear<CR>:!"%:p:r"<CR>
 autocmd FileType cs nnoremap <F9> :w<CR>:!mcs "%:p:r".cs<CR>
 autocmd FileType cs nnoremap <F8> :!mono "%:p:r".exe<CR>
@@ -297,5 +298,6 @@ autocmd FileType ocaml nnoremap <F7> :w<CR>:!ocaml < "%:p"<CR>
 autocmd FileType python nnoremap <F9> :w<CR>:!python "%:p"<CR>
 autocmd FileType sh nnoremap <F8> :w<CR>:!"%:p"<CR>
 autocmd FileType tex nnoremap <F9> :w<CR>:!xelatex "%:p" && zathura "%:p:r".pdf<CR>
+autocmd FileType markdown nnoremap <F9> :w<CR>:!~/.scripts/md_viewer.py "%"<CR>
 autocmd FileType javascript nnoremap <F9> :w<CR>:!node "%"<CR>
 autocmd FileType javascript nnoremap <F8> :w<CR>:!eslint "%"<CR>
