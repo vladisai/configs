@@ -240,6 +240,10 @@ set undoreload=10000
 "Gundo trigger
 nnoremap <leader>u :GundoToggle<CR>
 
+" backup dirs, must be created to work
+set backupdir=~/.vim/tmp
+set dir=/.vim/swap
+
 " tags
 set tags=./tags;
 

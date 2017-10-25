@@ -8,3 +8,6 @@ if [[ ! ${DISPLAY} && ${XDG_VTNR} == 2 ]]; then
 else
 	exec startx ~/.config/X/.xinitrc i3
 fi
+
+# OPAM configuration
+. /home/vlad/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

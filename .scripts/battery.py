@@ -71,7 +71,7 @@ def buildStringForUnknown(charge):
     return ' '.join(l)
 
 def buildString():
-    s = runCommand("acpi -b")
+    s = runCommand("acpi -b").splitlines()[0]
     matchFull = re.match(fullRegex, s)
     matchDischarging = re.match(dischargingRegex, s)
     matchCharging = re.match(chargingRegex, s)

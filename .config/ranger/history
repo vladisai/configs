@@ -1,50 +1,50 @@
-rename bpqq.latex
-shell vim map.py
-search lif
-mkdir zadanie6
-mkdir ai
-shell /bin/rm 2017_06_01_08_53_48 
-shell -w /bin/rm 2017_06_01_08_53_48 
-shell -w /bin/rm -rf 2017_06_01_08_53_48 
-search 
-shell /bin/rm hdb 
-shell zip ~/df.zip %s 
-mkdir 
-mkdir boleslaw prus lalka
-shell vim notes.txt
-shell vim test.py
-search src
-search inc
-search mi
-search mini
-shell jhло
-search i3
-shell -w cloc %s 
-shell -w /bin/rm -r 2017_06_01_08_53_48 
-shell tar -cvf ws374078.tar %s 
-shell э
-search org
-search test
-shell vim sport.txt
-open_with chromium
-search np
-search ipy
-shell pdfunite %s all.pdf
-shell diff %s 
-shell -w diff %s 
-shell -w vimdiff %s 
-shell G
-open_with 3
-open_with calibre
-search sin
-shell 's
-open_with
 open_with vlc
 open_with mpv
-shell /bin/rm %s 
-shell /bin/rm -r %s 
 shell /bin/rm -r 2017_06_29_17_23_47 
-open_with 
-
-shell 
 search config
+mkdir internship
+shell vim comment
+open_with 
+rename content.jpg
+rename style.jpg
+mkdir the social animal
+shell vim notes.txt
+mkdir the happiness equation
+shell vim notes
+shell tar -cvf 1.tar %s 
+rename vlad sobol.pdf
+rename George-Orwell_Animal-Farmob.epub
+search an
+search vimrc
+search vim
+shell /bin/rm %s 
+open_with 11
+rename multimedia12sd
+shell sudo /bin/rm *
+shell sudo /bin/rm -r *
+mkdir multimedia
+shell sudo mkdir multimedia
+shell  %s
+shell -t -w ./%s
+rename os.zip
+search reco
+mkdir kernel
+shell T
+shell tar -xvf KERNEL_G900FXXS1BPC3.tar.md5 
+mkdir 
+mkdir dupa
+search scrip
+shell 
+mkdir photos
+mkdir pronunciation
+shell unzip 45soundsebook-1.zip 
+search vlad
+search Photos
+
+shell /bin/rm -r %s 
+mkdir advanced
+mkdir beginner
+open_withkjkjkj
+shell unrar -x %s .
+search Two
+search pos
