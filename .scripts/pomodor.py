@@ -5,13 +5,11 @@ from subprocess import Popen, PIPE, check_output
 import pickle
 
 shortBreakDuration = 5 * 60
-longBreakDuration = 15 * 60
 workSessionDuration = 25 * 60
 sessionsForLongBreak = 4
 
 workStatusChar = ''
 shortBreakStatusChar = ''
-longBreakStatusChar = ''
 pausedSymbol = ''
 
 statusFile = '/home/vlad/.scripts/status'
@@ -20,15 +18,12 @@ class Status(Enum):
     inactive = 1
     working = 2
     shortBreak = 3
-    longBreak = 4
 
     def getDuration(self):
         if self is Status.inactive:
             return 0
         elif self is Status.working:
             return workSessionDuration
-        elif self is Status.longBreak:
-            return longBreakDuration
         elif self is Status.shortBreak:
             return shortBreakDuration
 
@@ -37,8 +32,6 @@ class Status(Enum):
             return ''
         elif self is Status.working:
             return workStatusChar
-        elif self is Status.longBreak:
-            return longBreakStatusChar
         elif self is Status.shortBreak:
             return shortBreakStatusChar
 
@@ -54,11 +47,6 @@ class Pomodor:
             self.timeElapsed += time.time() - self.lastOpened
         self.lastOpened = time.time()
 
-    def startLongBreak(self):
-        self.status = Status.longBreak
-        self.timeElapsed = 0
-        self.sessions = 0
-
     def startShortBreak(self):
         self.status = Status.shortBreak
         self.timeElapsed = 0
@@ -66,7 +54,6 @@ class Pomodor:
     def startWorkSession(self):
         self.status = Status.working
         self.timeElapsed = 0
-        self.sessions += 1
 
     def toggle(self):
         if self.status is Status.inactive:
@@ -85,6 +72,7 @@ class Pomodor:
             res = self.status.getCharacter() + ' ' + getTimeString(timeLeft)
             if self.isPaused:
                 res = pausedSymbol + ' ' + res
+            res += ' ({})'.format(self.sessions)
             return res
         
     def update(self):
@@ -95,19 +83,23 @@ class Pomodor:
 
         if self.timeElapsed >= self.status.getDuration():
             if self.status is Status.working:
-                if self.sessions == sessionsForLongBreak:
-                    self.startLongBreak()
-                else:
                     self.startShortBreak()
+                    self.sessions += 1
 
             elif self.status is Status.shortBreak:
                 self.startWorkSession()
 
-            elif self.status is Status.longBreak:
-                self.startWorkSession()
+    def resetSessions(self):
+        self.sessions = 0
+
+    def incSessions(self):
+        self.sessions += 1
+
+    def decSessions(self):
+        self.sessions -= 1
 
     def __str__(self):
-        return str(self.status) + ' elapsed:' + str(self.timeElapsed) + ' opened:' + str(self.lastOpened) + ' isPaused:' + str(self.isPaused)
+        return str(self.status) + ' elapsed:' + str(self.timeElapsed) + ' opened:' + str(self.lastOpened) + ' isPaused:' + str(self.isPaused) + ' sessions: {}'.format(self.sessions)
 
 def runCommand(command):
     return check_output(command, shell = True).decode(encoding = 'utf-8')
@@ -123,11 +115,13 @@ def getTimeString(seconds):
         return '<1 m'
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        exit(0)
 
     timer = pickle.load(open(statusFile, 'rb'))
     timer.update()
+
+    if len(sys.argv) < 2:
+        exit(0)
+
     #print(str(timer))
 
     cmd = sys.argv[1]
@@ -139,6 +133,15 @@ if __name__ == "__main__":
         refresh()
     if cmd == 'pause':
         timer.togglePause()
+        refresh()
+    if cmd == 'reset':
+        timer.resetSessions()
+        refresh()
+    if cmd == 'inc':
+        timer.incSessions()
+        refresh()
+    if cmd == 'dec':
+        timer.decSessions()
         refresh()
 
     pickle.dump(timer, open(statusFile, 'wb'))

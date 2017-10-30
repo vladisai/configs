@@ -4,6 +4,15 @@
 "~/.scripts/pomodor.py pause"
     Mod3 + F2
 
+"~/.scripts/pomodor.py reset"
+    Mod3 + F3
+
+"~/.scripts/pomodor.py dec"
+    Mod3 + F4
+
+"~/.scripts/pomodor.py inc"
+    Mod3 + F5
+
 "~/.scripts/sound_control.py adjust 5"
     Mod3 + F12
 
@@ -30,5 +39,3 @@
 
 "xbacklight -3"
     XF86MonBrightnessDown
-
-

@@ -1,7 +1,7 @@
 #
 # ~/.bash_profile
 #
-[[-f ~/.config/.bashrc ]] && . ~/.config/.bashrc
+[[ -f ~/.config/.bashrc ]] && . ~/.config/.bashrc
 
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 2 ]]; then
 	exec startx ~/.config/X/.xinitrc xfce 
