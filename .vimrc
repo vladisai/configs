@@ -13,14 +13,14 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " " Plugin ctags
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 
 " " Plugin easy tags ctags generation
 " " Plugin 'xolox/vim-misc'
@@ -35,22 +35,7 @@ Plugin 'scrooloose/nerdtree'
 " " Plugin airline
 Plugin 'bling/vim-airline'
 
-" " LustyExplorer
-Plugin 'vim-scripts/LustyExplorer'
-
-" " snipMate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-
-" " YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
-
-" " Gundo
-Plugin 'sjl/gundo.vim'
-
-" " Autoformat
-Plugin 'Chiel92/vim-autoformat'
+Plugin 'godlygeek/tabular'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -182,21 +167,22 @@ map <leader>t :TagbarOpenAutoClose<CR>
 map <leader>d :bd<CR>
 map <leader>v :vsplit<CR>
 map <leader>. :NERDTreeToggle<CR>
+map <leader>g :Utl<CR>
+map <leader><leader> <C-W><C-W>
 
 " key bindings
 inoremap <F9> <Esc><F9>
 inoremap <F8> <Esc><F8>
 map <F3> <esc>:w<CR>:bp<CR>
 map <F4> <esc>:w<CR>:bn<CR>
+map <leader>3 <esc>:w<CR>:bp<CR>
+map <leader>4 <esc>:w<CR>:bn<CR>
 nmap <CR> o<esc>
 
 " visuals
-set number
-let g:rehash256 = 1
-set t_Co=256
-set cursorline
-" colorscheme molokai
 colorscheme pettir
+set number
+set cursorline
 set background=light
 set termguicolors
 
@@ -242,7 +228,7 @@ nnoremap <leader>u :GundoToggle<CR>
 
 " backup dirs, must be created to work
 set backupdir=~/.vim/tmp
-set dir=/.vim/swap
+set dir=~/.vim/swap
 
 " tags
 set tags=./tags;
@@ -299,9 +285,21 @@ autocmd FileType java nnoremap <F8> :!java "%:r"<CR>
 autocmd FileType ocaml nnoremap <F9> :w<CR>:!ocamlc -o "%:p:r" "%:p:r".ml<CR>
 autocmd FileType ocaml nnoremap <F8> :!"%:p:r"<CR>
 autocmd FileType ocaml nnoremap <F7> :w<CR>:!ocaml < "%:p"<CR>
-autocmd FileType python nnoremap <F9> :w<CR>:!python "%:p"<CR>
-autocmd FileType sh nnoremap <F8> :w<CR>:!"%:p"<CR>
+autocmd FileType python nnoremap <leader>r :w<CR>:!python "%:p"<CR>
+autocmd FileType sh nnoremap <leader>r :w<CR>:!"%:p"<CR>
 autocmd FileType tex nnoremap <F9> :w<CR>:!xelatex "%:p" && zathura "%:p:r".pdf<CR>
 autocmd FileType markdown nnoremap <F9> :w<CR>:!~/.scripts/md_viewer.py "%"<CR>
 autocmd FileType javascript nnoremap <F9> :w<CR>:!node "%"<CR>
 autocmd FileType javascript nnoremap <F8> :w<CR>:!eslint "%"<CR>
+autocmd FileType matlab nnoremap <leader>r :w<CR>:!octave "%"<CR>
+
+
+autocmd FileType haskell nnoremap <leader>; :w<CR>:!ghc -o "%:p:r" "%"<CR>
+autocmd FileType haskell nnoremap <leader>r :!clear<CR>:!"%:p:r"<CR>
+
+func! TimerFunc(timer)
+    call feedkeys("\<C-A>")
+endfunc
+
+nnoremap <leader>sa :let timer = timer_start(60000, 'TimerFunc', {'repeat':-1})<CR>
+nnoremap <leader>sb :call timer_stop(timer)<CR>
