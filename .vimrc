@@ -13,14 +13,15 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " " Plugin ctags
-"Plugin 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
+
+Plugin 'tpope/vim-fugitive'
 
 " " Plugin easy tags ctags generation
 " " Plugin 'xolox/vim-misc'
@@ -37,8 +38,44 @@ Plugin 'bling/vim-airline'
 
 Plugin 'godlygeek/tabular'
 
+Plugin 'jeetsukumaran/vim-buffergator'
+
+Plugin 'ctrlpvim/ctrlp.vim'
+
+Plugin 'jremmen/vim-ripgrep'
+
+Plugin 'vim-python/python-syntax'
+
+Plugin 'nvie/vim-flake8'
+
+Plugin 'drmingdrmer/vim-toggle-quickfix'
+
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'psf/black'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
+
+Plugin 'stefandtw/quickfix-reflector.vim'
+
+Plugin 'junegunn/goyo.vim'
+
+Plugin 'junegunn/limelight.vim'
+
+Plugin 'kenn7/vim-arsync'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+
+let g:python_highlight_all = 1
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -146,6 +183,9 @@ endif
 
 autocmd CompleteDone * pclose
 
+
+let g:buffergator_suppress_keymaps = 1
+
 " Leader bindings
 let mapleader=","
 map <Leader>w :w<CR>
@@ -155,9 +195,9 @@ map <Leader>b ^
 map <Leader>e $
 map <Leader>da :%d<CR>
 map <Leader>h :nohl<CR>
-map <Leader>q :wq<CR>
+map <Leader>q :q<CR>
 map <Leader>s :sh<CR>
-nnoremap <leader>f :Autoformat<CR>
+map <Leader>m :BuffergatorToggle<CR>
 map <leader>a ggvG
 map <leader>y "+y
 map <leader>Y "+Y
@@ -170,6 +210,33 @@ map <leader>. :NERDTreeToggle<CR>
 map <leader>g :Utl<CR>
 map <leader><leader> <C-W><C-W>
 
+set regexpengine=1
+
+"map <leader>s :!clear && rsync -v /Users/vladsobol/study/NYU/research/PPUU/sppuu/Notebooks/Visualization/*.*py* cassio:~/work/pytorch-PPUU_2/Notebooks/Visualization<CR>
+"map <leader>s :!clear && rsync -v /Users/vladsobol/study/NYU/research/PPUU/sppuu/*.py cassio:~/work/pytorch-PPUU/ && rsync -v /Users/vladsobol/study/NYU/research/PPUU/sppuu/scripts/* cassio:~/work/pytorch-PPUU/scripts;<CR>
+"map <leader>s :!clear && rsync -zarv --include="*/" --include="*.csv" --include="*.py" --include="*.json" --include="*.sh" --include="*.slurm" --exclude="*" /Users/vladsobol/work/research/PPUU/repo/. cassio:~/work/pytorch-PPUU/.; <CR>
+"map <leader>s :!clear && rsync -zarv --include="*/" --include="*.csv" --include="*.py" --include="*.json" --include="*.sh" --include="*.slurm" --exclude="*" /Users/vladsobol/work/research/PPUU/repo/. cassio:~/work/pytorch-PPUU_2/.; <CR>
+"map <leader>s :!clear && rsync -zarv --include="*/" --include="*.ipynb" --include="*.py" --include="*.json" --include="*.sh" --include="*.slurm" --exclude="*" /Users/vladsobol/work/research/PPUU/repo/. cassio:~/work/pytorch-PPUU_offroad/.;<CR>
+"map <leader>s :!clear && rsync -zarv --progress --include="*/" --include="*.ipynb" --include="*.py" --include="*.json" --include="*.sh" --include="*.slurm" --exclude="*" /Users/vladsobol/work/research/PPUU/repo/.  cassio:~/work/pytorch-PPUU_dreaming/.;<CR>
+"map <leader>s :!clear && rsync -zarv --progress --include="*/" --include="*.ipynb" --include="*.py" --include="*.json" --include="*.sh" --include="*.slurm" --exclude="*" /Users/vladsobol/work/research/PPUU/repo/.  cassio:~/work/pytorch-PPUU_render/.;<CR>
+
+let g:black_linelength=120
+map <leader>s :!clear && source ./sync.sh<CR>
+
+map <space>f :CtrlP<CR>
+map <leader>f :Rg
+map <space>t :Black<CR> 
+
+map <space>p :call flake8#Flake8()<CR>
+map <space>4 :cn<CR>
+map <space>3 :cp<CR>
+
+map <space>q :ccl<CR>
+map <space>o :copen<CR>
+map <space>g :Goyo<CR>
+
+let g:flake8_show_in_gutter = 1
+
 " key bindings
 inoremap <F9> <Esc><F9>
 inoremap <F8> <Esc><F8>
@@ -177,7 +244,6 @@ map <F3> <esc>:w<CR>:bp<CR>
 map <F4> <esc>:w<CR>:bn<CR>
 map <leader>3 <esc>:w<CR>:bp<CR>
 map <leader>4 <esc>:w<CR>:bn<CR>
-nmap <CR> o<esc>
 
 " visuals
 colorscheme pettir
@@ -237,7 +303,6 @@ set tags=./tags;
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
-nnoremap <space> za
 set foldmethod=indent
 
 " reload and open vimrc
@@ -273,7 +338,7 @@ let NERDTreeQuitOnOpen = 1
 set hidden
 
 " compiling files
-autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f && g++ -O2 -Wall -Wextra -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
+autocmd FileType cpp nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r" -f; g++ -O2 -Wall -Wextra -std=c++14 -DDEBUG -o "%:p:r" "%:p"<CR>
 autocmd FileType cpp nnoremap <leader><F9> :w<CR>:!clear<CR>:!clang -Wall -Wextra -pthread -std=c++14 -O3 -lstdc++ "%:p" -o "%:p:r"<CR>
 autocmd FileType cpp nnoremap <F8> :!clear<CR>:!"%:p:r"<CR>
 autocmd FileType cs nnoremap <F9> :w<CR>:!mcs "%:p:r".cs<CR>
@@ -284,8 +349,7 @@ autocmd FileType java nnoremap <F9> :w<CR>:!clear<CR>:!rm "%:p:r".class -f && ja
 autocmd FileType java nnoremap <F8> :!java "%:r"<CR>
 autocmd FileType ocaml nnoremap <F9> :w<CR>:!ocamlc -o "%:p:r" "%:p:r".ml<CR>
 autocmd FileType ocaml nnoremap <F8> :!"%:p:r"<CR>
-autocmd FileType ocaml nnoremap <F7> :w<CR>:!ocaml < "%:p"<CR>
-autocmd FileType python nnoremap <leader>r :w<CR>:!python "%:p"<CR>
+autocmd FileType python nnoremap <leader>r :w<CR>:!python3 "%:p"<CR>
 autocmd FileType sh nnoremap <leader>r :w<CR>:!"%:p"<CR>
 autocmd FileType tex nnoremap <F9> :w<CR>:!xelatex "%:p" && zathura "%:p:r".pdf<CR>
 autocmd FileType markdown nnoremap <F9> :w<CR>:!~/.scripts/md_viewer.py "%"<CR>
@@ -301,5 +365,4 @@ func! TimerFunc(timer)
     call feedkeys("\<C-A>")
 endfunc
 
-nnoremap <leader>sa :let timer = timer_start(60000, 'TimerFunc', {'repeat':-1})<CR>
-nnoremap <leader>sb :call timer_stop(timer)<CR>
+imap jj <Esc>
