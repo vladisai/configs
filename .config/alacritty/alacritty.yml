@@ -650,16 +650,16 @@ key_bindings:
   - { key: J,  mods: Alt,                 chars: "\x02"}
   - { key: H,  mods: Alt,                 chars: "\x02\x28"}
   - { key: L,  mods: Alt,                 chars: "\x02\x29"}
-  - { key: Key1,  mods: Alt,                 chars: "\x02\x31"}
-  - { key: Key2,  mods: Alt,                 chars: "\x02\x32"}
-  - { key: Key3,  mods: Alt,                 chars: "\x02\x33"}
-  - { key: Key4,  mods: Alt,                 chars: "\x02\x34"}
-  - { key: Key5,  mods: Alt,                 chars: "\x02\x35"}
-  - { key: Key6,  mods: Alt,                 chars: "\x02\x36"}
-  - { key: Key7,  mods: Alt,                 chars: "\x02\x37"}
-  - { key: Key8,  mods: Alt,                 chars: "\x02\x38"}
-  - { key: Key9,  mods: Alt,                 chars: "\x02\x39"}
-  - { key: Key0,  mods: Alt,                 chars: "\x02\x30"}
+  - { key: 1,  mods: Alt,                 chars: "\x02\x30"}
+  - { key: 2,  mods: Alt,                 chars: "\x02\x31"}
+  - { key: 3,  mods: Alt,                 chars: "\x02\x32"}
+  - { key: 4,  mods: Alt,                 chars: "\x02\x33"}
+  - { key: 5,  mods: Alt,                 chars: "\x02\x34"}
+  - { key: 6,  mods: Alt,                 chars: "\x02\x35"}
+  - { key: 7,  mods: Alt,                 chars: "\x02\x36"}
+  - { key: 8,  mods: Alt,                 chars: "\x02\x37"}
+  - { key: 9,  mods: Alt,                 chars: "\x02\x38"}
+  - { key: 10,  mods: Alt,                chars: "\x02\x39"}
 
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }

@@ -1,10 +1,4 @@
-~/.scripts/keyboard_setup.sh
+~/.scripts/keyboard_setup.sh 2>&1
+xrdb -merge ~/.config/X/.Xresources_light 2>&1
 
-xrdb -merge ~/.config/X/.Xresources_light # theme
-
-session=${1:-xfce}
-case $session in
-	xfce ) exec startxfce4;;
-	i3   ) exec i3;;
-	*) exec i3;;
-esac
+exec dbus-launch i3 2>&1

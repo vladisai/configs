@@ -22,20 +22,11 @@
 "~/.scripts/sound_control.py toggle"
     Mod3 + F10
 
-"xterm -e vim -S ~/Documents/org/org.vim"
-    Mod3 + O
-
 "chromium"
     Mod3 + C
 
-"xterm -e bash ranger"
+"alacritty -e bash ranger"
     Mod3 + M
 
 "spotify"
     Mod3 + S
-
-"xbacklight +3"
-    XF86MonBrightnessUp
-
-"xbacklight -3"
-    XF86MonBrightnessDown

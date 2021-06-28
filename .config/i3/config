@@ -10,6 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod3
+set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -51,7 +52,7 @@ set $text_col #454545
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 #bindsym $mod+Return exec zsh
 
 # kill focused window
@@ -62,7 +63,7 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindcode $alt+65 exec rofi -show combi
 
 # change focus
 bindsym $mod+h focus left
@@ -145,7 +146,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-set $sysmenu " [r]estart - [l]ogout - [s]uspend - re[b]oot - po[w]eroff  "
+set $sysmenu " [r]estart - [l]ogout - [s]uspend - re[b]oot - po[w]eroff - [ ] lock"
 bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
@@ -156,6 +157,7 @@ mode $sysmenu {
         bindsym s         mode "default"; exec "systemctl suspend"
         bindsym Return    mode "default"
         bindsym Escape    mode "default"
+        bindsym 0x20      mode "default"; exec "i3lock -c 000000; sleep 5 && xset dpms force off"
 }
 
 # resize window (you can also use the mouse for that)
@@ -204,7 +206,6 @@ bar {
         tray_output HDMI1
         tray_output eDP1
         tray_padding 0
-        height 25
 
         colors {
             statusline         $accent_text_col
@@ -227,3 +228,10 @@ for_window [class="^.*"] border pixel 0
 #exec --no-startup-id compton -b
 
 bindsym $mod+x workspace to output left
+
+bindsym $mod+0x3b exec flameshot gui
+bindsym $alt+Shift+0x3b exec flameshot gui
+
+# alt+[ and alt+]
+bindsym $mod+0x5b exec xkb-switch -s pl
+bindsym $mod+0x5d exec xkb-switch -s ru

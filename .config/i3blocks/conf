@@ -32,27 +32,23 @@ command=~/.scripts/pomodor.py read
 signal=2
 interval=30
 
+#[disk]
+#command=~/.scripts/disk.py
+#interval=60
+
+#[load]
+#command=~/.scripts/load.py
+#interval=15
+
+#[temperature]
+#command=~/.scripts/temperature.py
+#interval=15
+
 [volume]
 command=~/.scripts/sound_control.py read
 interval=once
 signal=1
 
-[disk]
-command=~/.scripts/disk.py
-interval=60
-
-[load]
-command=~/.scripts/load.py
-interval=15
-
-[temperature]
-command=~/.scripts/temperature.py
-interval=15
-
-[battery]
-command=~/.scripts/battery.py
-interval=30
-
 [time]
-command=date '+%Y-%m-%d %H:%M                                                                              '
+command=date '+%Y-%m-%d %H:%M'
 interval=60
