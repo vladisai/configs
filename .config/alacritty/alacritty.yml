@@ -374,8 +374,8 @@ selection:
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
+shell:
+  program: /bin/zsh
 #  args:
 #    - --login
 
@@ -784,7 +784,7 @@ colors:
     foreground: '#000000'
   cursor:
     text:       CellBackground
-    cursor:     '#ffffff' # syntax-cursor-color
+    cursor:     '#000000' # syntax-cursor-color
   selection:
     text:       CellForeground
     background: '#c1ddff' # syntax-selection-color

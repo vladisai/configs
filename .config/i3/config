@@ -197,14 +197,11 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3blocks -c ~/.config/i3blocks/conf
         i3bar_command i3bar -t
-        tray_output primary
 
         font pango:NotoMono 10.3, FontAwesome 10.3
         separator_symbol "|"
         bindsym button4 nop
         bindsym button5 nop
-        tray_output HDMI1
-        tray_output eDP1
         tray_padding 0
 
         colors {
@@ -223,11 +220,10 @@ bar {
 
 workspace_layout tabbed
 exec --no-startup-id sh ~/.fehbg
+# exec --no-startup-id nvidia-settings --load-config-only
 
 for_window [class="^.*"] border pixel 0
 #exec --no-startup-id compton -b
-
-bindsym $mod+x workspace to output left
 
 bindsym $mod+0x3b exec flameshot gui
 bindsym $alt+Shift+0x3b exec flameshot gui
@@ -235,3 +231,5 @@ bindsym $alt+Shift+0x3b exec flameshot gui
 # alt+[ and alt+]
 bindsym $mod+0x5b exec xkb-switch -s pl
 bindsym $mod+0x5d exec xkb-switch -s ru
+
+bindsym $mod+0x6e exec ~/.scripts/touchpad.py toggle
