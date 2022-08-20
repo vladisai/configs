@@ -44,7 +44,7 @@ Device        Start       End   Sectors   Size Type
 6. Mount the root partition to `/mnt` and the EFI partition to `/mnt/boot`.
 
 ### 2.5 Run pacstrap
-```pacstrap /mnt base linux linux-firmware```
+```pacstrap /mnt base base-devel linux linux-firmware```
 Then generate fstab:
 ```genfstab -U /mnt >> /mnt/etc/fstab```
 Make sure it's correct.
@@ -108,6 +108,52 @@ Now we're ready to reboot into actual arch.
 2. Run `visudo`. Uncomment `%sudo   ALL=(ALL) ALL`.
 3. `usermod -a -G sudo vlad`
 
-### 4.2 Setting up
+### 4.2 Setting up internet
 
-To make internet work systemd-networkd, systemd-resolved, systemd-
+In order to make internet work properly, I need the following services enabled and started:
+```
+systemctl enable systemd-networkd
+systemctl enable systemd-resolved
+systemctl enable iwd
+```
+
+To autoconnect to wifi, put this into `/etc/iwd/main.conf`:
+```
+[Settings]
+AutoConnect=true
+```
+
+### 4.3 Installing yay
+Install `base-devel` (should be installed already).
+
+```
+cd /opt
+sudo git clone https://aur.archlinux.org/yay.git
+sudo chown -R vlad:vlad ./yay
+cd yay
+makepkg -si
+```
+
+### 4.4 Install notion
+```
+yay -S notion-app
+```
+
+### 4.5 Set up sound
+```
+sudo pacman -S pulseaudio pulsemixer
+yay -S pulseaudio-ctl
+```
+### 4.6 Install oh-my-zsh
+```
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+This will replace your existing `.zshrc` with the default one. To use the configs from the repo, 
+replace the generated `.zshrc` with yours. Remember to correct the path to `zsh` in the config.
+
+### 4.7 Configure vim
+Install vundle:
+```
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
