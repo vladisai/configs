@@ -69,7 +69,6 @@ linux-headers
 m4
 make
 megasync-bin
-mendeleydesktop-bundled
 monero-gui
 mosh
 mpv
