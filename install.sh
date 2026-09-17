@@ -58,11 +58,19 @@ done
 echo "==> Stowing dotfiles into $HOME"
 stow -d "$REPO_DIR" -t "$HOME" -R "${PACKAGES[@]}"
 
-echo "==> Setting up Vim plugin manager (Vundle)"
+echo "==> Setting up Vundle (legacy .vimrc plugins, loaded into nvim via cfg.vim)"
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
   git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 fi
-vim +PluginInstall +qall || true
+nvim --headless "+PluginInstall" +qall || true
+
+echo "==> Setting up vim-plug (cfg.vim's nvim-treesitter / vim-airline-themes)"
+PLUG_VIM="$HOME/.local/share/nvim/site/autoload/plug.vim"
+if [[ ! -f "$PLUG_VIM" ]]; then
+  curl -fLo "$PLUG_VIM" --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+nvim --headless "+PlugInstall" +qall || true
 
 echo "==> Setting up nvim-lspconfig"
 LSPCONFIG_DIR="$HOME/.config/nvim/pack/nvim/start/nvim-lspconfig"

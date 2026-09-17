@@ -124,7 +124,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-export EDITOR='vim'
+export EDITOR='nvim'
 alias last_command="fc -ln -1"
 
 alias assh='autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3"'
