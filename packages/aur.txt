@@ -12,13 +12,11 @@ libuvc
 libvisual
 megasync-bin
 nomachine
-notion-app
 noto-fonts-sc
 noto-fonts-tc
 obsidian-appimage
 openssl-1.1
 paman
-pcloud-drive
 pulseaudio-ctl
 ruff-lsp
 slack-desktop
