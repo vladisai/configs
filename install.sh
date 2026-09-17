@@ -49,6 +49,15 @@ for pkg in "${PACKAGES[@]}"; do
     rel="${src#"$REPO_DIR"/"$pkg"/}"
     target="$HOME/$rel"
     if [[ -e "$target" && ! -L "$target" ]]; then
+      # stow tree-folds: a whole directory (e.g. ~/.config/i3) can already be
+      # a symlink into this repo from a previous run, in which case $target
+      # "exists and isn't itself a symlink" while actually resolving back
+      # into the repo via that ancestor symlink. Re-running the backup in
+      # that case would rename the repo's own tracked file. Skip it.
+      resolved="$(readlink -f -- "$target" 2>/dev/null || true)"
+      case "$resolved" in
+        "$REPO_DIR"/*) continue ;;
+      esac
       echo "    $target -> $target.pre-configs-backup"
       mv "$target" "$target.pre-configs-backup"
     fi
