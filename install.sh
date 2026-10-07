@@ -118,8 +118,7 @@ cat <<'EOF2'
   - Copy ~/.ssh keys over securely (never stored in this repo).
   - Put this machine's git user.name / user.email in ~/.gitconfig.local if
     they differ from the ones in gitcfg/.gitconfig.
-  - Machine-specific shell setup goes in ~/.zshrc.local, or in
-    ~/.zshrc.pre.local if it has to run before the rest of ~/.zshrc.
+  - Machine-specific shell setup goes in ~/.zshrc.local.
   - Any app you log into (Slack, Discord, browsers, etc.) needs its own login.
   - Any *.pre-configs-backup files left behind are pre-existing files that
     would have collided with stow — diff/delete them once you've checked.

@@ -50,13 +50,12 @@ These are never tracked. Each is optional, and the shared files source it when i
 
 | File | Sourced from | Used for |
 |------|--------------|----------|
-| `~/.zshrc.pre.local` | top of `.zshrc` | setup that has to run first, e.g. the Kiro CLI pre block |
-| `~/.zshrc.local` | end of `.zshrc` | everything else machine-specific, e.g. work tools and aliases |
+| `~/.zshrc.local` | end of `.zshrc` | machine-specific shell setup, e.g. work tools and aliases |
 | `~/.tmux.conf.local` | end of `.tmux.conf` | tmux overrides |
 | `~/.gitconfig.local` | end of `.gitconfig` | `user.name` / `user.email` when they differ from the defaults |
 
 `~/.zshenv` and `~/.zprofile` are not tracked either. Installers like rustup,
-VS Code and Kiro write their own lines there.
+VS Code and Obsidian write their own lines there.
 
 ## Bootstrap a new machine
 

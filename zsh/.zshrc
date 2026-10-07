@@ -1,7 +1,3 @@
-# Machine-specific setup that has to run before everything else, e.g. the Kiro
-# CLI pre block. Not tracked in this repo.
-[ -f ~/.zshrc.pre.local ] && source ~/.zshrc.pre.local
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
