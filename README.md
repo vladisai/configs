@@ -1,32 +1,66 @@
 # configs
 
-My dotfiles, for Arch Linux + i3. Managed with [GNU Stow](https://www.gnu.org/software/stow/):
+My dotfiles, for Arch Linux + i3 and for macOS. Managed with [GNU Stow](https://www.gnu.org/software/stow/):
 each top-level directory is a "package" that mirrors the layout of `$HOME`, and
 `install.sh` symlinks it all into place.
 
 ## Layout
 
-| Package    | What it covers |
-|------------|----------------|
-| `zsh`      | `.zshrc` (oh-my-zsh, candy theme, `rg`-based `fpath`/`fgrep` helpers) |
-| `bash`     | `.bash_profile` / `.bashrc` — `.bash_profile` is what actually starts X (`startx ~/.config/X/.xinitrc`) on tty1 |
-| `nvim`     | `.config/nvim` (init.lua, lspconfig+ruff) plus the legacy `.vimrc` / `.vim/colors`, which `cfg.vim` still sources. Plugins are managed by Vundle (declared in `.vimrc`), not vendored in this repo |
-| `tmux`     | `.tmux.conf` |
-| `i3`       | `.config/i3/config` |
-| `i3blocks` | `.config/i3blocks` status bar config |
-| `alacritty`| `.config/alacritty/alacritty.yml` |
-| `rofi`     | `.config/rofi` |
-| `gitcfg`   | `.gitconfig` + `.config/git/ignore` |
-| `X`        | `.config/X` (xinitrc, Xresources, Xmodmap, xbindkeysrc) + `.fehbg` |
-| `scripts`  | `.scripts/` — i3blocks helpers, pomodoro timer, keyboard setup, etc. |
-| `iterm`    | iTerm2 profiles/keymap export, for whenever I'm back on a Mac — not stowed into `$HOME`, just kept for reference |
+Each config is split into three layers:
+
+| Layer | Where it lives | Examples |
+|-------|----------------|----------|
+| Shared | A plain package, stowed on every machine | `zsh/.zshrc`, `tmux`, `nvim` |
+| Per-OS | A `-linux` or `-mac` package, stowed only on that OS | `zsh-mac/.config/zsh/os.zsh` with Homebrew, mise and conda |
+| Per-machine | Untracked files in `$HOME` that the shared files source | work tools in `~/.zshrc.local`, the work email in `~/.gitconfig.local` |
+
+The package lists for each OS are at the top of `install.sh`.
+
+| Package    | OS | What it covers |
+|------------|----|----------------|
+| `zsh`      | both | `.zshrc`: oh-my-zsh, candy theme with a custom prompt, `rg`-based `fp`/`rgg` helpers. Sources `~/.config/zsh/os.zsh` and the local files below |
+| `zsh-linux`| Linux | `os.zsh`: starts X on tty1, conda, unison |
+| `zsh-mac`  | macOS | `os.zsh`: Homebrew, mise, conda |
+| `nvim`     | both | `.config/nvim` on lazy.nvim, which installs itself and the plugins pinned in `lazy-lock.json`. Also `.vimrc` and `.vim/colors` for plain vim |
+| `tmux`     | both | `.tmux.conf` |
+| `alacritty`| both | `.config/alacritty/alacritty.toml`: colors and window. Imports `os.toml` |
+| `alacritty-linux` | Linux | `os.toml`: Alt+key bindings for tmux |
+| `alacritty-mac` | macOS | `os.toml`: font, Cmd+key bindings, shell. Plus `.scripts/alacritty_font_size.sh` |
+| `ghostty`  | both | `.config/ghostty/config` |
+| `lf`       | both | `.config/lf`, with image previews through chafa |
+| `ranger`   | both | `.config/ranger/rc.conf` |
+| `zathura`  | both | `.config/zathura/zathurarc` |
+| `gitcfg`   | both | `.gitconfig` + `.config/git/ignore` |
+| `claude`   | both | `~/.claude/CLAUDE.md` and skills for Claude Code. Stowed without folding, so `~/.claude` itself stays a real directory |
+| `vifm`     | macOS | `.config/vifm/vifmrc`, the stock macOS one that opens files with `open -a` |
+| `bash`     | Linux | `.bash_profile` / `.bashrc` — `.bash_profile` starts X (`startx ~/.config/X/.xinitrc`) on tty1 when bash is the login shell |
+| `i3`       | Linux | `.config/i3/config` |
+| `i3blocks` | Linux | `.config/i3blocks` status bar config |
+| `rofi`     | Linux | `.config/rofi` |
+| `X`        | Linux | `.config/X` (xinitrc, Xresources, Xmodmap, xbindkeysrc) + `.fehbg` |
+| `scripts`  | Linux | `.scripts/` — i3blocks helpers, pomodoro timer, keyboard setup, etc. |
+| `iterm`    | — | iTerm2 profiles/keymap export, not stowed into `$HOME`, just kept for reference |
 
 `packages/pacman.txt` and `packages/aur.txt` are `pacman -Qqe` / `pacman -Qqm` snapshots
 of explicitly installed packages, for reinstalling the same toolset on a new machine.
 
+### Per-machine files
+
+These are never tracked. Each is optional, and the shared files source it when it exists:
+
+| File | Sourced from | Used for |
+|------|--------------|----------|
+| `~/.zshrc.pre.local` | top of `.zshrc` | setup that has to run first, e.g. the Kiro CLI pre block |
+| `~/.zshrc.local` | end of `.zshrc` | everything else machine-specific, e.g. work tools and aliases |
+| `~/.tmux.conf.local` | end of `.tmux.conf` | tmux overrides |
+| `~/.gitconfig.local` | end of `.gitconfig` | `user.name` / `user.email` when they differ from the defaults |
+
+`~/.zshenv` and `~/.zprofile` are not tracked either. Installers like rustup,
+VS Code and Kiro write their own lines there.
+
 ## Bootstrap a new machine
 
-If Arch is already installed, this is all you need:
+On Arch, once the OS itself is installed:
 
 ```sh
 git clone git@github.com:vladisai/configs.git ~/repos/configs
@@ -36,13 +70,22 @@ cd ~/repos/configs
 ./install.sh
 ```
 
-`install.sh` also clones Vundle.vim and runs `:PluginInstall`, and clones
-`nvim-lspconfig` into the native nvim package path.
+On macOS, with [Homebrew](https://brew.sh) and oh-my-zsh installed:
+
+```sh
+git clone git@github.com:vladisai/configs.git ~/repos/configs
+cd ~/repos/configs
+./install.sh   # installs stow through Homebrew if needed, then stows everything
+```
+
+Before stowing, `install.sh` moves anything in the way to `<name>.pre-configs-backup`.
+That covers real files as well as symlinks into some other dotfiles checkout.
+Afterwards it runs `nvim --headless "+Lazy! restore"` to install the nvim plugins.
 
 Not handled by the script, on purpose:
 - SSH keys (`~/.ssh/*`) — copy those over securely by hand, never commit them.
 - Logins for any app (browser, Slack, Discord, etc).
-- `git config --global user.email` if it should differ per machine.
+- The per-machine files above.
 
 If Arch itself isn't installed yet, see the from-scratch install notes below first.
 

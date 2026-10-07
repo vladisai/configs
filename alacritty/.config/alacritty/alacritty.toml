@@ -1,0 +1,51 @@
+# Font, key bindings and shell differ per OS, so they live in os.toml from the
+# alacritty-mac or alacritty-linux package of this repo.
+[general]
+import = ["~/.config/alacritty/os.toml"]
+
+[colors.bright]
+black = "#000000"
+blue = "#83afd8"
+cyan = "#37e5e7"
+green = "#98e342"
+magenta = "#bc93b6"
+red = "#f44135"
+white = "#f1f1ef"
+yellow = "#fcea60"
+
+[colors.cursor]
+cursor = "#000000"
+text = "CellBackground"
+
+[colors.normal]
+black = "#525252"
+blue = "#417ab3"
+cyan = "#00a7aa"
+green = "#5da602"
+magenta = "#88658d"
+red = "#d71e00"
+white = "#cbcbcb"
+yellow = "#cfad00"
+
+[colors.primary]
+background = "#ffffff"
+foreground = "#000000"
+
+[colors.selection]
+background = "#c1ddff"
+text = "CellForeground"
+
+[colors.vi_mode_cursor]
+cursor = "#aa2222"
+text = "CellBackground"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "none"
+dynamic_padding = true
+
+[window.padding]
+x = 2
+y = 1

@@ -1,0 +1,70 @@
+# -------------------------
+# Python bytecode & caches
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -------------------------
+# Python build artifacts
+# -------------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# -------------------------
+# Virtual environments
+# -------------------------
+.venv/
+venv/
+ENV/
+env/
+
+# -------------------------
+# Test / tooling caches
+# -------------------------
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# -------------------------
+# Jupyter
+# -------------------------
+.ipynb_checkpoints/
+
+# -------------------------
+# Packaging / dependency tools
+# -------------------------
+.tox/
+.nox/
+.poetry/
+.pdm/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# -------------------------
+# General build / cache junk
+# -------------------------
+.cache/
+.tmp/
+tmp/
+*.tmp
+*.swp
+*.swo
+
+# -------------------------
+# OS / editor noise
+# -------------------------
+.DS_Store
+Thumbs.db
+.nfs*
+
+
+.git/
+.claude/

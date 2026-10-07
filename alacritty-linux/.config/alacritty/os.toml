@@ -1,0 +1,67 @@
+# Linux part of alacritty.toml, imported from there. Alt+key sends the tmux
+# prefix followed by a key, like Cmd+key does on macOS.
+
+[[keyboard.bindings]]
+chars = "\u0002"
+key = "J"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002("
+key = "H"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002)"
+key = "L"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00021"
+key = "Key1"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00022"
+key = "Key2"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00023"
+key = "Key3"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00024"
+key = "Key4"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00025"
+key = "Key5"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00026"
+key = "Key6"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00027"
+key = "Key7"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00028"
+key = "Key8"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00029"
+key = "Key9"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00020"
+key = "Key0"
+mods = "Alt"

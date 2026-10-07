@@ -1,3 +1,7 @@
 [user]
 	name = Vlad
 	email = us441@nyu.edu
+# Per-machine overrides, e.g. a work email. Not tracked in this repo. Comes
+# last, so its values win over the ones above.
+[include]
+	path = ~/.gitconfig.local

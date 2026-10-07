@@ -1,0 +1,67 @@
+# Font
+font-family = Menlo
+font-size = 16
+
+# Colors - Light theme
+background = ffffff
+foreground = 000000
+
+# Selection
+selection-background = c1ddff
+
+# Cursor
+cursor-color = 000000
+cursor-text = ffffff
+
+# Normal colors
+palette = 0=525252
+palette = 1=d71e00
+palette = 2=5da602
+palette = 3=cfad00
+palette = 4=417ab3
+palette = 5=88658d
+palette = 6=00a7aa
+palette = 7=cbcbcb
+
+# Bright colors
+palette = 8=000000
+palette = 9=f44135
+palette = 10=98e342
+palette = 11=fcea60
+palette = 12=83afd8
+palette = 13=bc93b6
+palette = 14=37e5e7
+palette = 15=f1f1ef
+
+# Window
+window-decoration = false
+window-padding-x = 2
+window-padding-y = 1
+window-save-state = always
+resize-overlay = never
+
+# Shell
+shell-integration = detect
+window-inherit-font-size = true
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+
+# Keybindings
+keybind = cmd+j=text:\x02
+keybind = alt+h=text:\x02(
+keybind = alt+l=text:\x02)
+keybind = cmd+physical:one=text:\x021
+keybind = cmd+physical:two=text:\x022
+keybind = cmd+physical:three=text:\x023
+keybind = cmd+physical:four=text:\x024
+keybind = cmd+physical:five=text:\x025
+keybind = cmd+physical:six=text:\x026
+keybind = cmd+physical:seven=text:\x027
+keybind = cmd+physical:eight=text:\x028
+keybind = cmd+physical:nine=text:\x029
+keybind = cmd+physical:zero=text:\x020
+keybind = cmd+shift+space=toggle_split_zoom
+keybind = cmd+shift+v=paste_from_clipboard
+keybind = cmd+shift+c=copy_to_clipboard

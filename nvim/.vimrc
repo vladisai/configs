@@ -1,87 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Plugin ctags
-Plugin 'majutsushi/tagbar'
-
-Plugin 'tpope/vim-fugitive'
-
-" " Plugin easy tags ctags generation
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-
-" " Plugin Nerd Commenter
-Plugin 'scrooloose/nerdcommenter'
-
-" " Nerd tree
-Plugin 'scrooloose/nerdtree'
-
-" " Plugin airline
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
-Plugin 'godlygeek/tabular'
-
-Plugin 'jeetsukumaran/vim-buffergator'
-
-Plugin 'ctrlpvim/ctrlp.vim'
-
-Plugin 'jremmen/vim-ripgrep'
-
-Plugin 'vim-python/python-syntax'
-
-Plugin 'nvie/vim-flake8'
-
-Plugin 'drmingdrmer/vim-toggle-quickfix'
-
-" Add maktaba and codefmt to the runtimepath.
-" (The latter must be installed before it can be used.)
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-Plugin 'psf/black'
-" Also add Glaive, which is used to configure codefmt's maktaba flags. See
-" `:help :Glaive` for usage.
-Plugin 'google/vim-glaive'
-
-Plugin 'stefandtw/quickfix-reflector.vim'
-
-Plugin 'junegunn/limelight.vim'
-
-Plugin 'kenn7/vim-arsync'
-
-Plugin 'github/copilot.vim.git'
-
-Plugin 'liuchengxu/vim-clap'
-
-Plugin 'airblade/vim-gitgutter.git'
-
-Plugin 'CoderCookE/vim-chatgpt'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
-call glaive#Install()
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
-
 let g:python_highlight_all = 1
 
 filetype plugin indent on    " required
@@ -197,7 +116,6 @@ let g:buffergator_suppress_keymaps = 1
 " Leader bindings
 let mapleader=","
 map <Leader>w :w<CR>
-map <Leader>c ^i//<esc>
 map <Leader>uc ^df/^df/
 map <Leader>b ^
 map <Leader>e $
@@ -234,11 +152,8 @@ map <leader>s :!clear && rsync -zarv --progress --include="*/" --include="*.ipyn
 
 let g:black_linelength=88
 
-map <space>f :CtrlP<CR>
-map <space>b :CtrlPBuffer<CR>
-map <space>r :CtrlPMRU<CR>
 map <leader>f :Rg
-map <space>t :Black<CR> 
+map <space>t :Black<CR>
 
 map <space>p :call flake8#Flake8()<CR>
 map <space>4 :cn<CR>
@@ -246,11 +161,13 @@ map <space>3 :cp<CR>
 
 map <space>q :ccl<CR>
 map <space>o :copen<CR>
-map <space>g :Goyo<CR>
 
 let g:flake8_show_in_gutter = 1
 let g:flake8_show_in_file = 0
-let g:flake8_cmd="/opt/homebrew/bin/flake8"
+" Elsewhere vim-flake8 finds flake8 on PATH.
+if has('mac')
+    let g:flake8_cmd="/opt/homebrew/bin/flake8"
+endif
 
 " " flake8
 " to use colors defined in the colorscheme
@@ -298,7 +215,7 @@ if !exists('g:airline_symbols')
 endif
 
 " unicode symbols
-let g:airline_theme = 'light'
+let g:airline_theme = 'sol'
 let g:airline_left_sep = '>'
 let g:airline_left_alt_setp = '|'
 let g:airline_right_sep = '<'
@@ -405,6 +322,11 @@ endfunc
 
 imap jj <Esc>
 
+" Elsewhere tagbar and easytags find ctags on PATH.
+if has('mac')
+    let g:tagbar_ctags_bin="/opt/homebrew/Cellar/ctags/5.8_2/bin/ctags"
+    let g:easytags_cmd="/opt/homebrew/Cellar/ctags/5.8_2/bin/ctags"
+endif
 let g:easytags_async=1
 let g:easytags_opts=["--fields=+l","--python-kinds=-i"]
 set tags=./tags;

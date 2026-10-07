@@ -1,30 +1,22 @@
+# Machine-specific setup that has to run before everything else, e.g. the Kiro
+# CLI pre block. Not tracked in this repo.
+[ -f ~/.zshrc.pre.local ] && source ~/.zshrc.pre.local
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-#
-#
-if [ -f ~/.bash_profile ]; then
-	. ~/.bash_profile;
-fi
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/vlad/.oh-my-zsh/"
-
-# Find files by path regex, e.g.: fpath '\.py$'
-fpath() { rg --files | rg "$1"; }
-
-# Grep file contents with +-3 lines context, e.g.: fgrep 'Container.*Loader'
-fgrep() { rg --color=always -n -C 3 "$1"; }
-
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="candy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -35,17 +27,16 @@ ZSH_THEME="candy"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -57,6 +48,9 @@ ZSH_THEME="candy"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -76,8 +70,8 @@ ZSH_THEME="candy"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
@@ -90,12 +84,19 @@ plugins=(git
 
 zle -N znt-cd-widget
 bindkey "^Y" znt-cd-widget
-#zle -N znt-kill-widget
-#bindkey "^Y" znt-kill-widget
+
+# Find files by path regex, e.g.: fp '\.py$'
+fp() { rg --files | rg "$1"; }
+
+# Grep file contents with +-3 lines context, e.g.: rgg 'Container.*Loader'
+rgg() { rg --color=always -n -C 3 "$1"; }
 
 bindkey -v
 
 source $ZSH/oh-my-zsh.sh
+
+PROMPT=$'%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%X]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} \
+%{$fg[blue]%}->%{$fg_bold[blue]%} %#%{$reset_color%} '
 
 # User configuration
 
@@ -108,42 +109,47 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export EDITOR=nvim
 
-export EDITOR='nvim'
+alias e=${EDITOR}
 alias last_command="fc -ln -1"
-
 alias assh='autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3"'
 
-alias e=nvim
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/vlad/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/vlad/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/vlad/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/vlad/miniconda3/bin:$PATH"
+s3view() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: s3view s3://bucket/path/to/file"
+        return 1
     fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
-export PATH="/home/vlad/apps/unison/bin:$PATH"
+    aws s3 cp "$1" - | ${EDITOR:-vim} -
+}
+
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# OS-specific setup, from the zsh-mac or zsh-linux package of this repo.
+source ~/.config/zsh/os.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Machine-specific setup, e.g. work tools. Not tracked in this repo.
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
