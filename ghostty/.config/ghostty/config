@@ -62,6 +62,9 @@ keybind = cmd+physical:seven=text:\x027
 keybind = cmd+physical:eight=text:\x028
 keybind = cmd+physical:nine=text:\x029
 keybind = cmd+physical:zero=text:\x020
+# cmd+0 resets the font size by default, and that default still fires next to
+# the physical binding above. Override it so cmd+0 only selects tmux window 10.
+keybind = cmd+0=text:\x020
 keybind = cmd+shift+space=toggle_split_zoom
 keybind = cmd+shift+v=paste_from_clipboard
 keybind = cmd+shift+c=copy_to_clipboard
