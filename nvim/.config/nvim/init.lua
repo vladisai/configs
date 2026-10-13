@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Diagnostics config
 -- =========================
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = { prefix = "●", spacing = 2 },
   signs = true,
   underline = true,
   update_in_insert = false,
@@ -149,10 +149,6 @@ vim.diagnostic.config({
 -- Highlight groups
 -- (these should come AFTER colorscheme, which is probably in cfg.vim)
 -- =========================
-vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { fg = '#ff6b6b', italic = true })
-vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn',  { fg = '#ffd93d', italic = true })
-vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo',  { fg = '#6bcf7f', italic = true })
-vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint',  { fg = '#a8a8a8', italic = true })
 
 vim.api.nvim_set_hl(0, 'Search',    { fg = '#000000', bg = '#f9d992' })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = '#000000', bg = '#f9d992' })

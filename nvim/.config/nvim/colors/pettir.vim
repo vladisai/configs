@@ -4,28 +4,28 @@ let g:colors_name = "pettir"
 if &background == "light"
     hi Boolean gui=NONE guifg=#707070 guibg=NONE
     hi ColorColumn gui=NONE guifg=NONE guibg=#f5f5f5
-    hi Comment gui=NONE guifg=#7c7979 guibg=NONE
+    hi Comment gui=italic guifg=#8a8790 guibg=NONE
     hi Conceal gui=NONE guifg=#707070 guibg=NONE
 
-    hi Character        guifg=#A05314
-    hi String gui=NONE guifg=#CB5C00 guibg=NONE
-    hi Define          guifg=#66D9EF
-    hi Statement guifg=#00B4B4
-    hi Keyword guifg=#00B4B4
-    hi Function gui=NONE guifg=#3E53C3 guibg=NONE
-    hi Identifier gui=NONE guifg=#1631C4 guibg=NONE
+    hi Character        guifg=#d4502a
+    hi String gui=NONE guifg=#d4502a guibg=NONE
+    hi Define          guifg=#6fb0be
+    hi Statement guifg=#0f8a8a
+    hi Keyword guifg=#0f8a8a
+    hi Function gui=NONE guifg=#3a56d4 guibg=NONE
+    hi Identifier gui=NONE guifg=#2b2b33 guibg=NONE
 
-    hi Constant gui=NONE guifg=#006000 guibg=NONE
-    hi Type gui=NONE guifg=#308585 guibg=NONE
-    hi Special gui=NONE guifg=#A01414 guibg=NONE
+    hi Constant gui=NONE guifg=#2e8b4a guibg=NONE
+    hi Type gui=NONE guifg=#9340c0 guibg=NONE
+    hi Special gui=NONE guifg=#d03a80 guibg=NONE
     hi SpecialKey gui=NONE guifg=#c2c2c2 guibg=NONE
-    hi PreProc gui=NONE guifg=#94007e guibg=NONE
+    hi PreProc gui=NONE guifg=#d03a80 guibg=NONE
 
     hi Cursor gui=reverse guifg=#b5b5b5 guibg=#000000
     hi CursorColumn gui=NONE guifg=NONE guibg=#f5f5f5
-    hi CursorLine gui=NONE guifg=NONE guibg=#f3f2f2
+    hi CursorLine gui=NONE guifg=NONE guibg=#f4f7ff
     hi CursorLine cterm=NONE
-    hi CursorLineNr gui=NONE guifg=#050505 guibg=#f3f2f2
+    hi CursorLineNr gui=NONE guifg=#050505 guibg=#f4f7ff
     hi DiffAdd gui=NONE guifg=NONE guibg=#f0fff0
     hi DiffChange gui=NONE guifg=NONE guibg=#f5f5f5
     hi DiffDelete gui=NONE guifg=NONE guibg=#fff0f0
@@ -38,12 +38,12 @@ if &background == "light"
     hi Ignore gui=NONE guifg=NONE guibg=NONE
     hi IncSearch gui=NONE guifg=NONE guibg=#ffde7a
     hi LineNr gui=NONE guifg=#707070 guibg=NONE
-    hi MatchParen gui=NONE guifg=NONE guibg=#e8e8e8
+    hi MatchParen gui=NONE guifg=NONE guibg=#ffe3f0
     hi ModeMsg gui=NONE guifg=NONE guibg=NONE
     hi MoreMsg gui=NONE guifg=NONE guibg=NONE
     hi NonText gui=NONE guifg=#c2c2c2 guibg=NONE
-    hi Normal gui=NONE guifg=#000000 guibg=#ffffff
-    hi Number gui=NONE guifg=#c07c07 guibg=NONE
+    hi Normal gui=NONE guifg=#2b2b33 guibg=#ffffff
+    hi Number gui=NONE guifg=#b86e00 guibg=NONE
     hi Pmenu gui=NONE guifg=NONE guibg=#f5f5f5
     hi PmenuSbar gui=NONE guifg=NONE guibg=#ededed
     hi PmenuSel gui=NONE guifg=NONE guibg=#e3e3e3
@@ -65,7 +65,7 @@ if &background == "light"
     hi Todo gui=standout guifg=#ff0000 guibg=#ffffff
     hi Underlined gui=NONE guifg=NONE guibg=NONE
     hi VertSplit gui=NONE guifg=#e3e3e3 guibg=NONE
-    hi Visual gui=NONE guifg=NONE guibg=#e3e3e3
+    hi Visual gui=NONE guifg=NONE guibg=#dbe6ff
     hi VisualNOS gui=NONE guifg=NONE guibg=NONE
     hi WarningMsg gui=NONE guifg=#c25202 guibg=NONE
     hi WildMenu gui=NONE guifg=NONE guibg=#d1d1d1
@@ -75,6 +75,13 @@ if &background == "light"
     " so they fell back to Neovim's own defaults instead of the palette above.
     hi Delimiter gui=NONE guifg=#707070 guibg=NONE
     hi Operator gui=NONE guifg=#707070 guibg=NONE
+
+    " Diagnostics: muted text on a soft tinted strip (lives here so
+    " :colorscheme reloads do not wipe it)
+    hi DiagnosticVirtualTextError gui=italic guifg=#c0392b guibg=#fdecea
+    hi DiagnosticVirtualTextWarn  gui=italic guifg=#9a6700 guibg=#fff8e1
+    hi DiagnosticVirtualTextInfo  gui=italic guifg=#1f7a3a guibg=#e8f5e9
+    hi DiagnosticVirtualTextHint  gui=italic guifg=#6e7781 guibg=#f2f4f6
 elseif &background == "dark"
     hi Boolean gui=NONE guifg=#808080 guibg=NONE
     hi ColorColumn gui=NONE guifg=NONE guibg=#1a1a1a
