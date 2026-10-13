@@ -134,7 +134,9 @@ texinfo
 thunar
 tmux
 transmission-gtk
+tree-sitter-cli
 ttf-dejavu
+ttf-nerd-fonts-symbols-mono
 tumbler
 udiskie
 unrar
