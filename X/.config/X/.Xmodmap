@@ -9,11 +9,12 @@ keycode 134 = Alt_R
 keycode 64  = Super_L
 keycode 108 = Super_R
 
-add Mod1 = Alt_L Alt_R
-add Mod3 = Super_L Super_R
+add Mod3 = Alt_L Alt_R
+add Mod1 = Super_L Super_R
 
-! your Caps/Esc swap
-remove Lock = Caps_Lock
-keysym Caps_Lock = Escape
-keysym Escape    = Caps_Lock
+! Escape -> Caps Lock (reverse direction only; Caps -> Escape is now set
+! natively via `setxkbmap -option caps:escape` in keyboard_setup.sh so it's
+! visible to XKB-aware apps like Chromium/Electron/Obsidian, which xmodmap
+! can't reach). keycode 9 is the physical Escape key on all standard layouts.
+keycode 9 = Caps_Lock
 add Lock = Caps_Lock

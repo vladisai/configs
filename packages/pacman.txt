@@ -21,6 +21,7 @@ discord
 dmenu
 docker
 docker-compose
+dunst
 ethtool
 evtest
 fakeroot

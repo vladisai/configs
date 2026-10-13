@@ -1,0 +1,110 @@
+[colors.bright]
+black = "#000000"
+blue = "#83afd8"
+cyan = "#37e5e7"
+green = "#98e342"
+magenta = "#bc93b6"
+red = "#f44135"
+white = "#f1f1ef"
+yellow = "#fcea60"
+
+[colors.cursor]
+cursor = "#000000"
+text = "CellBackground"
+
+[colors.normal]
+black = "#525252"
+blue = "#417ab3"
+cyan = "#00a7aa"
+green = "#5da602"
+magenta = "#88658d"
+red = "#d71e00"
+white = "#cbcbcb"
+yellow = "#cfad00"
+
+[colors.primary]
+background = "#ffffff"
+foreground = "#000000"
+
+[colors.selection]
+background = "#c1ddff"
+text = "CellForeground"
+
+[colors.vi_mode_cursor]
+cursor = "#aa2222"
+text = "CellBackground"
+
+[[keyboard.bindings]]
+chars = "\u0002"
+key = "J"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002("
+key = "H"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0002)"
+key = "L"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00020"
+key = 1
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00021"
+key = 2
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00022"
+key = 3
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00023"
+key = 4
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00024"
+key = 5
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00025"
+key = 6
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00026"
+key = 7
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00027"
+key = 8
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00028"
+key = 9
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u00029"
+key = 10
+mods = "Alt"
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

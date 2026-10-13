@@ -133,17 +133,22 @@ alias e=nvim
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/vlad/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/vlad/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/vlad/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/vlad/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/vlad/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/vlad/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/vlad/miniconda3/bin:$PATH"
+        export PATH="/home/vlad/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH="/home/vlad/apps/unison/bin:$PATH"
+
+# uv
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"

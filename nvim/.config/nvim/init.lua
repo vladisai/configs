@@ -1,11 +1,15 @@
-require('lspconfig').ruff_lsp.setup {
+vim.lsp.config('ruff', {
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
   init_options = {
     settings = {
       -- Any extra CLI arguments for `ruff` go here.
       args = {},
     }
   }
-}
+})
+vim.lsp.enable('ruff')
 
 vim.cmd('source ~/.config/nvim/cfg.vim')
 

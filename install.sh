@@ -7,7 +7,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGES=(zsh bash nvim tmux i3 i3blocks alacritty rofi gitcfg X scripts)
+PACKAGES=(zsh bash nvim tmux i3 i3blocks dunst alacritty rofi gitcfg X scripts)
 
 FAILED_PACKAGES=()
 

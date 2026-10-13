@@ -14,7 +14,7 @@ set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:NotoMono 10.3
+font pango:NotoMono 14.3
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
@@ -198,7 +198,7 @@ bar {
     status_command i3blocks -c ~/.config/i3blocks/conf
         i3bar_command i3bar -t
 
-        font pango:NotoMono 10.3
+        font pango:NotoMono 14.3
         separator_symbol "|"
         bindsym button4 nop
         bindsym button5 nop
@@ -221,6 +221,7 @@ bar {
 workspace_layout tabbed
 exec --no-startup-id sh ~/.fehbg
 exec udiskie --tray
+exec --no-startup-id dunst
 
 for_window [class="^.*"] border pixel 0
 #exec --no-startup-id compton -b
@@ -234,3 +235,22 @@ bindsym $alt+Shift+0x3b exec flameshot gui
 bindsym $mod+0x5b exec xkb-switch -s pl
 bindsym $mod+0x5d exec xkb-switch -s ru
 bindsym $mod+0x5c exec xkb-switch -s by
+
+# brightness (F3/F4 with Fn held, XF86 without)
+bindsym F3 exec brightnessctl set 5%-
+bindsym F4 exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+
+# volume (F9/F10/F11 with Fn held, XF86 without)
+bindsym F9  exec ~/.scripts/sound_control.py toggle
+bindsym F10 exec ~/.scripts/sound_control.py adjust -5
+bindsym F11 exec ~/.scripts/sound_control.py adjust 5
+bindsym XF86AudioMute exec ~/.scripts/sound_control.py toggle
+bindsym XF86AudioLowerVolume exec ~/.scripts/sound_control.py adjust -5
+bindsym XF86AudioRaiseVolume exec ~/.scripts/sound_control.py adjust 5
+
+# notifications (dunst)
+bindsym $mod+n       exec dunstctl close
+bindsym $mod+Shift+n exec dunstctl close-all
+bindsym $mod+p       exec dunstctl history-pop

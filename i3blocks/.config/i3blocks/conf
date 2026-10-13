@@ -44,6 +44,10 @@ interval=30
 #command=~/.scripts/temperature.py
 #interval=15
 
+[battery]
+command=~/.scripts/battery.py
+interval=15
+
 [volume]
 command=~/.scripts/sound_control.py read
 interval=once

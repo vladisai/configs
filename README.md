@@ -14,6 +14,7 @@ each top-level directory is a "package" that mirrors the layout of `$HOME`, and
 | `tmux`     | `.tmux.conf` |
 | `i3`       | `.config/i3/config` |
 | `i3blocks` | `.config/i3blocks` status bar config |
+| `dunst`    | `.config/dunst/dunstrc` — notification daemon, autostarted from i3 |
 | `alacritty`| `.config/alacritty/alacritty.yml` |
 | `rofi`     | `.config/rofi` |
 | `gitcfg`   | `.gitconfig` + `.config/git/ignore` |

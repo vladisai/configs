@@ -1,38 +1,35 @@
 #!/usr/bin/env python3
 
-from subprocess import Popen, PIPE, check_output
-import sys
-import re
+from pathlib import Path
 
-batChargingSymbol = ''
-bat100Symbol = ''
-bat75Symbol = ''
-bat50Symbol = ''
-bat20Symbol = ''
-bat0Symbol = ''
+batChargingSymbol = ''
+bat100Symbol = ''
+bat75Symbol = ''
+bat50Symbol = ''
+bat20Symbol = ''
+bat0Symbol = ''
 
-fullRegex = '^Battery [0-9]: Full, ([0-9]*)%$'
-dischargingRegex = '^Battery [0-9]: Discharging, ([0-9]*)%, ([0-9]{2})\:([0-9]{2})\:([0-9]{2}) remaining$'
-chargingRegex = '^Battery [0-9]: Charging, ([0-9]*)%, ([0-9]{2}):([0-9]{2}):([0-9]{2}) until charged$'
-unknownRegex = '^Battery [0-9]: Unknown, ([0-9]*)%$'
+BAT = Path('/sys/class/power_supply/BAT1')
 
-def runCommand(command):
-    return check_output(command, shell = True).decode(encoding = 'utf-8')
+def read(name):
+    return (BAT / name).read_text().strip()
+
+def readInt(name):
+    return int(read(name))
 
 def buildTimeString(hours, mins):
     ret = ''
-    hours = int(hours)
-    mins = int(mins)
     if hours != 0:
         ret += str(hours) + 'h '
     if mins != 0:
         ret += str(mins) + 'm '
     if len(ret) > 0 and ret[-1] == ' ':
         ret = ret[:-1]
+    if len(ret) == 0:
+        return ''
     return ' (' + ret + ')'
 
 def getSymbol(charge):
-    charge = int(charge)
     if charge == 100:
         return bat100Symbol
     elif charge >= 75:
@@ -44,57 +41,39 @@ def getSymbol(charge):
     else:
         return bat0Symbol
 
-def buildStringForFull(charge):
-    l = []
-    l.append(batChargingSymbol)
-    l.append(charge + '%')
-    return ' '.join(l)
-
-def buildStringForCharging(charge, hours, mins):
-    l = []
-    l.append(batChargingSymbol)
-    l.append(charge + '%')
-    l.append(buildTimeString(hours, mins))
-    return ' '.join(l)
-
-def buildStringForDischarging(charge, hours, mins):
-    l = []
-    l.append(getSymbol(charge))
-    l.append(charge + '%')
-    l.append(buildTimeString(hours, mins))
-    return ' '.join(l)
-
-def buildStringForUnknown(charge):
-    l = []
-    l.append(getSymbol(charge))
-    l.append(charge + '%')
-    return ' '.join(l)
+def timeString(remainingCharge, currentNow):
+    if currentNow <= 0:
+        return ''
+    hours = remainingCharge / currentNow
+    wholeHours = int(hours)
+    mins = int(round((hours - wholeHours) * 60))
+    if mins == 60:
+        wholeHours += 1
+        mins = 0
+    return buildTimeString(wholeHours, mins)
 
 def buildString():
-    s = runCommand("acpi -b").splitlines()[0]
-    matchFull = re.match(fullRegex, s)
-    matchDischarging = re.match(dischargingRegex, s)
-    matchCharging = re.match(chargingRegex, s)
-    matchUnknown = re.match(unknownRegex, s)
+    status = read('status')
+    charge = readInt('capacity')
 
-    if matchFull is not None:
-        charge = matchFull.group(1)
-        return buildStringForFull(charge)
+    if status == 'Full':
+        return ' '.join([batChargingSymbol, str(charge) + '%'])
 
-    elif matchDischarging is not None:
-        charge = matchDischarging.group(1)
-        hours = matchDischarging.group(2)
-        mins = matchDischarging.group(3)
-        return buildStringForDischarging(charge, hours, mins)
+    currentNow = readInt('current_now') if (BAT / 'current_now').exists() else 0
 
-    elif matchCharging is not None:
-        charge = matchCharging.group(1)
-        hours = matchCharging.group(2)
-        mins = matchCharging.group(3)
-        return buildStringForCharging(charge, hours, mins)
+    if status == 'Charging':
+        chargeFull = readInt('charge_full')
+        chargeNow = readInt('charge_now')
+        remaining = max(chargeFull - chargeNow, 0)
+        l = [batChargingSymbol, str(charge) + '%', timeString(remaining, currentNow)]
+        return ' '.join(l)
 
-    elif matchUnknown is not None:
-        charge = matchUnknown.group(1)
-        return buildStringForUnknown(charge)
+    if status == 'Discharging':
+        chargeNow = readInt('charge_now')
+        l = [getSymbol(charge), str(charge) + '%', timeString(chargeNow, currentNow)]
+        return ' '.join(l)
+
+    # Unknown / Not charging
+    return ' '.join([getSymbol(charge), str(charge) + '%'])
 
 print(buildString())
