@@ -1,0 +1,3 @@
+# vifm writes its state next to vifmrc. Stow can make ~/.config/vifm a symlink
+# into this repo, which would put that state file here.
+vifminfo.json
