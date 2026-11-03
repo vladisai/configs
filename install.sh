@@ -14,7 +14,7 @@ COMMON=(zsh nvim tmux alacritty gitcfg ghostty lf ranger zathura)
 # half of a common package, e.g. zsh-mac/.config/zsh/os.zsh, which .zshrc
 # sources.
 LINUX=(zsh-linux alacritty-linux bash i3 i3blocks dunst rofi X scripts)
-MAC=(zsh-mac alacritty-mac vifm)
+MAC=(zsh-mac alacritty-mac vifm aerospace)
 # ~/.claude holds Claude Code's state, including credentials. Stowing without
 # folding makes sure ~/.claude itself never becomes a symlink into this repo.
 NO_FOLDING=(claude)

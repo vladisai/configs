@@ -33,6 +33,7 @@ The package lists for each OS are at the top of `install.sh`.
 | `gitcfg`   | both | `.gitconfig` + `.config/git/ignore` |
 | `claude`   | both | `~/.claude/CLAUDE.md` and skills for Claude Code. Stowed without folding, so `~/.claude` itself stays a real directory |
 | `vifm`     | macOS | `.config/vifm/vifmrc`, the stock macOS one that opens files with `open -a` |
+| `aerospace`| macOS | `.aerospace.toml`: AeroSpace tiling window manager, workspaces 0-9 on Alt+number |
 | `bash`     | Linux | `.bash_profile` / `.bashrc` — `.bash_profile` starts X (`startx ~/.config/X/.xinitrc`) on tty1 when bash is the login shell |
 | `i3`       | Linux | `.config/i3/config` |
 | `i3blocks` | Linux | `.config/i3blocks` status bar config |
