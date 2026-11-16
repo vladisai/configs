@@ -5,20 +5,11 @@ if [[ -z ${DISPLAY} ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx ~/.config/X/.xinitrc > ~/last_log
 fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/vlad/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/vlad/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/vlad/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/vlad/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# Loading conda in every new shell is slow, so run conda_zsh when you need it.
+# Don't run `conda init zsh`, which would add the slow block back to ~/.zshrc.
+conda_zsh() {
+    eval "$(/home/vlad/miniforge3/bin/conda shell.zsh hook)"
+}
 
 export PATH="$HOME/apps/unison/bin:$PATH"
 
