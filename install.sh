@@ -103,8 +103,8 @@ stow -d "$REPO_DIR" -t "$HOME" -R "${PACKAGES[@]}"
 stow -d "$REPO_DIR" -t "$HOME" -R --no-folding "${NO_FOLDING[@]}"
 
 if [[ "$OS" == mac ]]; then
-  echo "==> Applying macOS settings from macos-defaults.sh"
-  "$REPO_DIR/macos-defaults.sh"
+  echo "==> Applying macOS settings from macos/defaults.sh"
+  "$REPO_DIR/macos/defaults.sh"
 fi
 
 echo "==> Installing nvim plugins at the versions in lazy-lock.json"

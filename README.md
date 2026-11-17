@@ -47,8 +47,12 @@ The package lists for each OS are at the top of `install.sh`.
 of explicitly installed packages, for reinstalling the same toolset on a new machine.
 `packages/Brewfile` does the same for macOS, through `brew bundle`.
 
-`macos-defaults.sh` holds the macOS settings that live in `defaults` instead of a dotfile, such as
-keeping the Dock hidden. `install.sh` runs it on macOS.
+`macos/defaults.sh` holds the macOS settings that live in `defaults` instead of a dotfile, such as
+keeping the Dock hidden, and the keyboard layouts: Polish Pro and Russian – PC, with Ctrl+Space
+to switch between them. `install.sh` runs it on macOS. It sets the layouts through
+`macos/input_sources.swift`, which needs `swift` from the Xcode Command Line Tools. Homebrew
+installs those, so they are already there. A change made in System Settings doesn't reach the
+repo, so add it to `macos/defaults.sh` by hand.
 
 ### Per-machine files
 

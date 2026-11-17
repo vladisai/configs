@@ -1,13 +1,27 @@
 #!/usr/bin/env bash
 # macOS settings that live in `defaults` rather than in a dotfile, so stow can't
 # link them. install.sh runs this on macOS, and running it again is harmless.
-# The keyboard and trackpad settings take effect after logging out and back in.
+# The key repeat and trackpad settings take effect after logging out and back in.
 set -euo pipefail
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Keyboard: fast key repeat. Holding a key repeats it instead of offering accents.
 defaults write -g KeyRepeat -int 2
 defaults write -g InitialKeyRepeat -int 15
 defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Keyboard layouts: Polish Pro and Russian - PC, and no others.
+swift "$DIR/input_sources.swift" com.apple.keylayout.PolishPro com.apple.keylayout.RussianWin
+# Ctrl+Space switches to the previous layout. The shortcut ships disabled on
+# some Macs. 60 is "Select the previous input source" in System Settings >
+# Keyboard > Keyboard Shortcuts > Input Sources. Its parameters are the
+# character (32, space), the key code (49, space) and the modifier mask
+# (262144, Ctrl).
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
+  '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>262144</integer></array><key>type</key><string>standard</string></dict></dict>'
+# Applies the shortcut change without logging out.
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
 # Typing: no autocorrect, no auto-capitalization, no period on double space, and
 # no smart quotes or dashes.
