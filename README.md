@@ -45,6 +45,10 @@ The package lists for each OS are at the top of `install.sh`.
 
 `packages/pacman.txt` and `packages/aur.txt` are `pacman -Qqe` / `pacman -Qqm` snapshots
 of explicitly installed packages, for reinstalling the same toolset on a new machine.
+`packages/Brewfile` does the same for macOS, through `brew bundle`.
+
+`macos-defaults.sh` holds the macOS settings that live in `defaults` instead of a dotfile, such as
+keeping the Dock hidden. `install.sh` runs it on macOS.
 
 ### Per-machine files
 
@@ -76,7 +80,7 @@ On macOS, with [Homebrew](https://brew.sh) and oh-my-zsh installed:
 ```sh
 git clone git@github.com:vladisai/configs.git ~/repos/configs
 cd ~/repos/configs
-./install.sh   # installs stow through Homebrew if needed, then stows everything
+./install.sh --packages   # installs packages/Brewfile, then stows everything
 ```
 
 Before stowing, `install.sh` moves anything in the way to `<name>.pre-configs-backup`.

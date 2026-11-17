@@ -3,7 +3,8 @@
 #
 # Usage:
 #   ./install.sh            # stow this OS's packages into $HOME
-#   ./install.sh --packages # Arch only: also install pacman + AUR packages first
+#   ./install.sh --packages # also install packages first: pacman + AUR on Arch,
+#                           packages/Brewfile on macOS
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
@@ -27,11 +28,10 @@ esac
 
 FAILED_PACKAGES=()
 
-if [[ "${1:-}" == "--packages" ]]; then
-  if [[ "$OS" != linux ]]; then
-    echo "--packages installs from the Arch package lists in packages/, so it only works on Arch." >&2
-    exit 1
-  fi
+if [[ "${1:-}" == "--packages" && "$OS" == mac ]]; then
+  echo "==> Installing Homebrew packages from packages/Brewfile"
+  brew bundle --file "$REPO_DIR/packages/Brewfile"
+elif [[ "${1:-}" == "--packages" ]]; then
   echo "==> Installing pacman packages from packages/pacman.txt"
   # Some packages in a years-old snapshot may no longer exist or may already
   # be provided by something else — install one at a time so one bad name
@@ -101,6 +101,11 @@ done
 echo "==> Stowing dotfiles into $HOME"
 stow -d "$REPO_DIR" -t "$HOME" -R "${PACKAGES[@]}"
 stow -d "$REPO_DIR" -t "$HOME" -R --no-folding "${NO_FOLDING[@]}"
+
+if [[ "$OS" == mac ]]; then
+  echo "==> Applying macOS settings from macos-defaults.sh"
+  "$REPO_DIR/macos-defaults.sh"
+fi
 
 echo "==> Installing nvim plugins at the versions in lazy-lock.json"
 # lazy.nvim clones itself on the first start, see nvim/.config/nvim/lua/config/lazy.lua.

@@ -1,0 +1,74 @@
+# Homebrew packages for macOS, the counterpart of pacman.txt and aur.txt.
+# Install them with `brew bundle --file packages/Brewfile`. Work tools come from
+# Toolbox and axe instead, and their shell setup goes in ~/.zshrc.local.
+#
+# `trusted: true` marks formulae and casks from third-party taps, which current
+# Homebrew refuses to install until they are trusted.
+
+tap "autozimu/formulas"
+tap "homebrew-zathura/zathura"
+tap "nikitabobko/tap"
+
+# Shell, editor and terminal. os.zsh runs mise in every shell, so it is required.
+brew "stow"
+brew "neovim"
+brew "tree-sitter-cli"
+brew "tmux"
+brew "mise"
+brew "fzf"
+brew "zoxide"
+brew "ripgrep"
+brew "fd"
+cask "ghostty"
+cask "nikitabobko/tap/aerospace", trusted: true
+
+# File managers and image previews in the terminal.
+brew "lf"
+brew "ranger"
+brew "chafa"
+brew "viu"
+
+# PDF and DjVu viewer, the same plugins as on Arch.
+brew "homebrew-zathura/zathura/zathura", trusted: true
+brew "homebrew-zathura/zathura/zathura-pdf-mupdf", trusted: true
+brew "homebrew-zathura/zathura/zathura-djvu", trusted: true
+
+# Continuous sync with the devdsk. Homebrew's unison has no unison-fsmonitor on
+# macOS, so it comes from a separate tap.
+brew "unison"
+brew "autozimu/formulas/unison-fsmonitor", trusted: true
+
+# Command-line tools.
+brew "coreutils"
+brew "watch"
+brew "wget"
+brew "htop"
+brew "jq"
+brew "cloc"
+brew "unar"
+brew "telnet"
+brew "mosh"
+brew "gh"
+brew "git-lfs"
+brew "pandoc"
+brew "graphviz"
+
+# Languages and dev tools.
+brew "node"
+brew "go"
+brew "luarocks"
+brew "ctags"
+brew "ruff"
+brew "python-lsp-server"
+brew "pygments"
+brew "rust-analyzer"
+brew "ollama"
+cask "miniconda"
+cask "codex"
+
+# Apps.
+cask "obsidian"
+cask "bitwarden"
+cask "claude"
+cask "telegram"
+cask "spotify"
